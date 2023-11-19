@@ -40,8 +40,7 @@ public class PacienteWindow extends JFrame {
         // Hacer visible la ventana
         setVisible(true);
 
-        JPanel panelPacientes = new JPanel(new BorderLayout());
-
+        //JPanel panelPacientes = new JPanel(new BorderLayout());
         setLocationRelativeTo(null);
         setVisible(true);
     }

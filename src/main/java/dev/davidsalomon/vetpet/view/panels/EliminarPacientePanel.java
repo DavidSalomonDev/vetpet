@@ -41,11 +41,8 @@ public class EliminarPacientePanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        cargarInfoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cargarInformacionPaciente();
-            }
+        cargarInfoButton.addActionListener((ActionEvent e) -> {
+            cargarInformacionPaciente();
         });
         add(cargarInfoButton, gbc);
 

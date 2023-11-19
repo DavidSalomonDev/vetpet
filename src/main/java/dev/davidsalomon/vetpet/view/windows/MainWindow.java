@@ -1,10 +1,9 @@
 package dev.davidsalomon.vetpet.view.windows;
 
-import dev.davidsalomon.vetpet.view.windows.PacienteWindow;
+import dev.davidsalomon.vetpet.controller.CitaController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MainWindow extends JFrame {
@@ -25,43 +24,28 @@ public class MainWindow extends JFrame {
         descripcionLabel.setVerticalAlignment(SwingConstants.CENTER);
 
         JButton pacientesButton = new JButton("Gestión de Pacientes");
-        pacientesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirVentanaPacientes();
-            }
+        pacientesButton.addActionListener((ActionEvent e) -> {
+            abrirVentanaPacientes();
         });
 
         JButton citasButton = new JButton("Gestión de Citas");
-        citasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirVentanaCitas();
-            }
+        citasButton.addActionListener((ActionEvent e) -> {
+            abrirVentanaCitas();
         });
 
         JButton vacunasButton = new JButton("Gestión de Vacunas");
-        vacunasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirVentanaVacunas();
-            }
+        vacunasButton.addActionListener((ActionEvent e) -> {
+            abrirVentanaVacunas();
         });
 
         JButton expedientesButton = new JButton("Gestión de Expedientes");
-        expedientesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirVentanaExpedientes();
-            }
+        expedientesButton.addActionListener((ActionEvent e) -> {
+            abrirVentanaExpedientes();
         });
 
         JButton cobrosButton = new JButton("Gestión de Cobros");
-        cobrosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirVentanaCobros();
-            }
+        cobrosButton.addActionListener((ActionEvent e) -> {
+            abrirVentanaCobros();
         });
 
         gbc.gridx = 0;
@@ -96,8 +80,7 @@ public class MainWindow extends JFrame {
     }
 
     private void abrirVentanaCitas() {
-        // Aquí puedes implementar la lógica para abrir la ventana de gestión de citas
-        JOptionPane.showMessageDialog(this, "Implementa la lógica para la gestión de citas", "Gestión de Citas", JOptionPane.INFORMATION_MESSAGE);
+        new CitaWindow(new PacienteController(), new CitaController());
     }
 
     private void abrirVentanaVacunas() {
