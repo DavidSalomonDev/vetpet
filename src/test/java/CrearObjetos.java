@@ -9,7 +9,7 @@ public class CrearObjetos {
     public static void main(String[] args) {
 
         PacienteController pacienteController = new PacienteController();
-        /*
+
         Paciente paciente1 = new Paciente("Pluton", "David", 3, "Perro", "Pastor Alemán", "M", 5, 5, "Profundo", "2022-01-01");
         Paciente paciente2 = new Paciente("Luna", "Maria", 2, "Gato", "Siames", "H", 3, 4, "Corto", "2022-02-15");
         Paciente paciente3 = new Paciente("Max", "Juan", 4, "Perro", "Golden Retriever", "M", 6, 7, "Largo", "2021-12-10");
@@ -31,10 +31,12 @@ public class CrearObjetos {
         pacienteController.agregarPaciente(paciente8);
         pacienteController.agregarPaciente(paciente9);
         pacienteController.agregarPaciente(paciente10);
-         */
+
         List<Paciente> pacientes = pacienteController.getPacientes();
         System.out.println("Pacientes registrados:");
         pacientes.forEach(paciente -> System.out.println(Data.objectToJson(paciente)));
+
+        System.out.println();
     }
 
 }

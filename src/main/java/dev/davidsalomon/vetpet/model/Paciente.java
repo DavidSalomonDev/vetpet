@@ -20,6 +20,7 @@ public class Paciente implements Serializable {
     private double peso;
     private String pelaje;
     private Date fechaNacimiento;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public Paciente() {
         this.uniqueId = Data.generarIDUnico();
@@ -38,8 +39,6 @@ public class Paciente implements Serializable {
         this.peso = peso;
         this.pelaje = pelaje;
         this.fechaInscripcion = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             this.fechaNacimiento = dateFormat.parse(fechaNacimiento);
@@ -96,12 +95,13 @@ public class Paciente implements Serializable {
         this.sexo = sexo;
     }
 
-    public Date getFechaInscripcion() {
-        return fechaInscripcion;
+    public String getFechaInscripcion() {
+        return dateFormat.format(fechaInscripcion);
+
     }
 
-    public void setFechaInscripcion(Date fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
+    public void setFechaInscripcion(String fechaInscripcion) throws ParseException {
+        this.fechaInscripcion = dateFormat.parse(fechaInscripcion);
     }
 
     public double getAltura() {
@@ -128,12 +128,12 @@ public class Paciente implements Serializable {
         this.pelaje = pelaje;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getFechaNacimiento() {
+        return dateFormat.format(fechaNacimiento);
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(String fechaNacimiento) throws ParseException {
+        this.fechaNacimiento = dateFormat.parse(fechaNacimiento);
     }
 
     public String getUniqueId() {

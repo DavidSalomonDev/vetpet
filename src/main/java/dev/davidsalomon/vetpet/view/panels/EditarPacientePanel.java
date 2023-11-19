@@ -1,9 +1,12 @@
-package dev.davidsalomon.vetpet.view;
+package dev.davidsalomon.vetpet.view.panels;
 
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.model.Paciente;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class EditarPacientePanel extends JPanel {
@@ -65,7 +68,11 @@ public class EditarPacientePanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         editarPacienteButton.addActionListener((ActionEvent e) -> {
-            editarPaciente();
+            try {
+                editarPaciente();
+            } catch (ParseException ex) {
+                Logger.getLogger(EditarPacientePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         add(editarPacienteButton, gbc);
 
@@ -149,7 +156,7 @@ public class EditarPacientePanel extends JPanel {
         return null;
     }
 
-    private void editarPaciente() {
+    private void editarPaciente() throws ParseException {
         String idPaciente = idTextField.getText();
 
         // Verificar que el ID no esté vacío
@@ -160,20 +167,24 @@ public class EditarPacientePanel extends JPanel {
 
         // Buscar el paciente con el ID proporcionado
         Paciente pacienteExistente = buscarPacientePorID(idPaciente);
+        Paciente nuevaDataPaciente;
 
         if (pacienteExistente == null) {
             JOptionPane.showMessageDialog(this, "No se encontró un paciente con el ID proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Actualizar los datos del paciente
-            pacienteExistente.setNombre(nombreTextField.getText());
-            pacienteExistente.setDueno(duenoTextField.getText());
-            pacienteExistente.setEdad(Integer.parseInt(edadTextField.getText()));
-            pacienteExistente.setCategoria(categoriaTextField.getText());
-            pacienteExistente.setRaza(razaTextField.getText());
-            pacienteExistente.setSexo(sexoTextField.getText());
-            pacienteExistente.setAltura(Double.parseDouble(alturaTextField.getText()));
-            pacienteExistente.setPeso(Double.parseDouble(pesoTextField.getText()));
-            pacienteExistente.setPelaje(pelajeTextField.getText());
+            nuevaDataPaciente = new Paciente(
+                    nombreTextField.getText(),
+                    duenoTextField.getText(),
+                    Integer.parseInt(edadTextField.getText()),
+                    categoriaTextField.getText(),
+                    razaTextField.getText(),
+                    sexoTextField.getText(),
+                    Double.parseDouble(alturaTextField.getText()),
+                    Double.parseDouble(pesoTextField.getText()),
+                    pelajeTextField.getText(),
+                    "2022-01-01");
+
+            pacienteController.editarPaciente(idPaciente, nuevaDataPaciente);
 
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Paciente editado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);

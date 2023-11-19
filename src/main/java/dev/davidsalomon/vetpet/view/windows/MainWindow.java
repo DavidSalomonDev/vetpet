@@ -1,5 +1,6 @@
-package dev.davidsalomon.vetpet.view;
+package dev.davidsalomon.vetpet.view.windows;
 
+import dev.davidsalomon.vetpet.view.windows.PacienteWindow;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import java.awt.*;
 import java.awt.event.ActionEvent;

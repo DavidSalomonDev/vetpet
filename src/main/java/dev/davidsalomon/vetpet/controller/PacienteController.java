@@ -2,6 +2,7 @@ package dev.davidsalomon.vetpet.controller;
 
 import dev.davidsalomon.vetpet.model.Paciente;
 import java.io.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +24,21 @@ public class PacienteController {
         guardarPacientesEnArchivo();
     }
 
-    public void editarPaciente(String uniqueId, Paciente nuevoPaciente) {
+    public void editarPaciente(String uniqueId, Paciente nuevoPaciente) throws ParseException {
         for (Paciente paciente : pacientes) {
             if (paciente.getUniqueId().equals(uniqueId)) {
-                // Actualizar los datos del paciente
+                // Actualizar todos los datos del paciente
                 paciente.setNombre(nuevoPaciente.getNombre());
                 paciente.setDueno(nuevoPaciente.getDueno());
                 paciente.setEdad(nuevoPaciente.getEdad());
-                // Actualizar los demás atributos...
+                paciente.setCategoria(nuevoPaciente.getCategoria());
+                paciente.setRaza(nuevoPaciente.getRaza());
+                paciente.setSexo(nuevoPaciente.getSexo());
+                paciente.setAltura(nuevoPaciente.getAltura());
+                paciente.setPeso(nuevoPaciente.getPeso());
+                paciente.setPelaje(nuevoPaciente.getPelaje());
+                paciente.setFechaNacimiento(nuevoPaciente.getFechaNacimiento());
+                // Guardar los cambios en el archivo
                 guardarPacientesEnArchivo();
                 break;
             }

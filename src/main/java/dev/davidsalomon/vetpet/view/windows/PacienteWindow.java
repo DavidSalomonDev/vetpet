@@ -1,9 +1,11 @@
-package dev.davidsalomon.vetpet.view;
+package dev.davidsalomon.vetpet.view.windows;
 
 import dev.davidsalomon.vetpet.controller.PacienteController;
+import dev.davidsalomon.vetpet.view.panels.AgregarPacientePanel;
+import dev.davidsalomon.vetpet.view.panels.EditarPacientePanel;
+import dev.davidsalomon.vetpet.view.panels.EliminarPacientePanel;
+import dev.davidsalomon.vetpet.view.panels.MostrarPacientesPanel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class PacienteWindow extends JFrame {
@@ -85,16 +87,14 @@ public class PacienteWindow extends JFrame {
 
     private JPanel createBorrarPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        // Agregar componentes y lógica para el panel de dar de baja pacientes
-        JButton borrarButton = new JButton("Dar de Baja");
-        borrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para dar de baja paciente utilizando PacienteController
-                // Ejemplo: pacienteController.darDeBajaPaciente(...);
-            }
-        });
-        panel.add(borrarButton, BorderLayout.CENTER);
+        panel.setSize(800, 600);
+
+        // Crear instancia de AgregarPacientePanel
+        EliminarPacientePanel eliminarPacientePanel = new EliminarPacientePanel(pacienteController);
+
+        // Agregar AgregarPacientePanel al panel principal
+        panel.add(eliminarPacientePanel, BorderLayout.CENTER);
+
         return panel;
     }
 

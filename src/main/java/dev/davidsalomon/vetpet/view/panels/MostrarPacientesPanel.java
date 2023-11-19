@@ -1,4 +1,4 @@
-package dev.davidsalomon.vetpet.view;
+package dev.davidsalomon.vetpet.view.panels;
 
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.model.Paciente;

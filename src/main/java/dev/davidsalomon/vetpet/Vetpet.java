@@ -5,7 +5,7 @@ import dev.davidsalomon.vetpet.controller.CobroController;
 import dev.davidsalomon.vetpet.controller.ExpedienteController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.controller.VacunaController;
-import dev.davidsalomon.vetpet.view.MainWindow;
+import dev.davidsalomon.vetpet.view.windows.MainWindow;
 import javax.swing.SwingUtilities;
 
 public class Vetpet {
