@@ -16,7 +16,7 @@ public class EditarPacientePanel extends JPanel {
     private final PacienteController pacienteController;
     private final JTextField idTextField;
     private JTextField nombreTextField, duenoTextField, edadTextField, categoriaTextField,
-            razaTextField, sexoTextField, alturaTextField, pesoTextField, pelajeTextField, fechaNacimientoTextField;
+            razaTextField, sexoTextField, alturaTextField, pesoTextField, pelajeTextField;
 
     public EditarPacientePanel(PacienteController pacienteController) {
         this.pacienteController = pacienteController;
@@ -59,7 +59,6 @@ public class EditarPacientePanel extends JPanel {
         addLabelAndTextField("Altura del Paciente:", gbc);
         addLabelAndTextField("Peso del Paciente:", gbc);
         addLabelAndTextField("Pelaje del Paciente:", gbc);
-        addLabelAndTextField("Fecha de Nacimiento del Paciente:", gbc);
 
         JButton editarPacienteButton = new JButton("Editar Paciente");
         gbc.gridx = 0;
@@ -109,8 +108,6 @@ public class EditarPacientePanel extends JPanel {
                 pesoTextField = textField;
             case "Pelaje del Paciente:" ->
                 pelajeTextField = textField;
-            case "Fecha de Nacimiento del Paciente:" ->
-                fechaNacimientoTextField = textField;
             default -> {
             }
         }
@@ -143,7 +140,6 @@ public class EditarPacientePanel extends JPanel {
             alturaTextField.setText(String.valueOf(pacienteExistente.getAltura()));
             pesoTextField.setText(String.valueOf(pacienteExistente.getPeso()));
             pelajeTextField.setText(pacienteExistente.getPelaje());
-            fechaNacimientoTextField.setText(String.valueOf(pacienteExistente.getFechaNacimiento()));
         }
     }
 
@@ -182,7 +178,7 @@ public class EditarPacientePanel extends JPanel {
                     Double.parseDouble(alturaTextField.getText()),
                     Double.parseDouble(pesoTextField.getText()),
                     pelajeTextField.getText(),
-                    "2022-01-01");
+                    pacienteExistente.getFechaNacimiento());
 
             pacienteController.editarPaciente(idPaciente, nuevaDataPaciente);
 
@@ -205,6 +201,6 @@ public class EditarPacientePanel extends JPanel {
         pesoTextField.setText("");
         alturaTextField.setText("");
         pelajeTextField.setText("");
-        fechaNacimientoTextField.setText("");
+
     }
 }

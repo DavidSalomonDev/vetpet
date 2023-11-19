@@ -89,30 +89,35 @@ public class AgregarPacientePanel extends JPanel {
     }
 
     private void agregarNuevoPaciente() {
-        String nombre = nombreTextField.getText();
-        String dueno = duenoTextField.getText();
-        int edad = Integer.parseInt(edadTextField.getText());
-        String categoria = categoriaTextField.getText();
-        String raza = razaTextField.getText();
-        String sexo = sexoTextField.getText();
-        double altura = Double.parseDouble(alturaTextField.getText());
-        double peso = Double.parseDouble(alturaTextField.getText());
-        String pelaje = pelajeTextField.getText();
-        String fechaNacimiento = fechaNacimientoTextField.getText();
+        try {
+            String nombre = nombreTextField.getText();
+            String dueno = duenoTextField.getText();
+            int edad = Integer.parseInt(edadTextField.getText());
+            String categoria = categoriaTextField.getText();
+            String raza = razaTextField.getText();
+            String sexo = sexoTextField.getText();
+            double altura = Double.parseDouble(alturaTextField.getText());
+            double peso = Double.parseDouble(pesoTextField.getText());
+            String pelaje = pelajeTextField.getText();
+            String fechaNacimiento = fechaNacimientoTextField.getText();
 
-        // Crear un nuevo paciente
-        Paciente nuevoPaciente = new Paciente(nombre, dueno, edad, categoria, raza, sexo, altura, peso, pelaje, fechaNacimiento);
+            // Crear un nuevo paciente
+            Paciente nuevoPaciente = new Paciente(nombre, dueno, edad, categoria, raza, sexo, altura, peso, pelaje, fechaNacimiento);
 
-        // Agregar el paciente al controlador
-        pacienteController.agregarPaciente(nuevoPaciente);
+            // Agregar el paciente al controlador
+            pacienteController.agregarPaciente(nuevoPaciente);
 
-        pacienteController.getPacientes();
+            pacienteController.getPacientes();
 
-        // Mostrar mensaje de éxito
-        JOptionPane.showMessageDialog(this, "Paciente agregado exitosamente. Cierre la ventana y vuelvala a abrir para ver al paciente en la lista.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Paciente agregado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        // Limpiar los campos de texto después de agregar el paciente
-        limpiarCampos();
+            // Limpiar los campos de texto después de agregar el paciente
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            // En caso de error de formato, mostrar cuadro de diálogo
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para Edad, Altura, Peso, y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void limpiarCampos() {
