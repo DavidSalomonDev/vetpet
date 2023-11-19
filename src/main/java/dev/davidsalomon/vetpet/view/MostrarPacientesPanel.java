@@ -5,7 +5,7 @@ import dev.davidsalomon.vetpet.model.Paciente;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 public final class MostrarPacientesPanel extends JPanel {
 
@@ -18,6 +18,13 @@ public final class MostrarPacientesPanel extends JPanel {
         this.pacienteController = pacienteController;
 
         setLayout(new BorderLayout());
+
+        JButton actualizarButton = new JButton("Actualizar Lista");
+        actualizarButton.addActionListener(e -> actualizarListaPacientes());
+
+        // Panel para contener el botón
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(actualizarButton);
 
         // Crear DefaultTableModel y JTable para mostrar pacientes
         tableModel = new DefaultTableModel();
@@ -46,8 +53,12 @@ public final class MostrarPacientesPanel extends JPanel {
         // Obtener y mostrar información de pacientes
         actualizarListaPacientes();
 
+        // Agregar JTable y botón al panel
+        add(buttonPanel, BorderLayout.NORTH);
         // Agregar JTable al panel
         add(scrollPane, BorderLayout.CENTER);
+
+        autoAjustarColumnas(pacientesTable);
     }
 
     // Método para actualizar la lista de pacientes en la JTable
@@ -77,6 +88,20 @@ public final class MostrarPacientesPanel extends JPanel {
                 paciente.getFechaNacimiento()
             };
             tableModel.addRow(rowData);
+        }
+    }
+
+    // Método para autoajustar las columnas de la JTable
+    private void autoAjustarColumnas(JTable table) {
+        TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 30; // Ancho mínimo
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
 }
