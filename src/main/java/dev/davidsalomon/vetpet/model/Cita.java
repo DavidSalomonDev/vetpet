@@ -12,6 +12,8 @@ public class Cita implements Serializable {
     // Atributos
     private String uniqueId;
     private Date fechaHora;
+    private String dia;
+    private String hora;
     private String idPaciente;
     private String motivo;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
@@ -25,9 +27,11 @@ public class Cita implements Serializable {
         this.uniqueId = Data.generarIDUnico();
         this.idPaciente = idPaciente;
         this.motivo = motivo;
+        this.dia = dia;
+        this.hora = hora;
 
         try {
-            this.fechaHora = dateFormat.parse(dia + " " + hora);
+            this.fechaHora = dateFormat.parse(this.dia + " " + this.hora);
         } catch (ParseException e) {
             e.printStackTrace(); // Manejar la excepción de formato de fecha incorrecto según sea necesario
         }
@@ -39,7 +43,9 @@ public class Cita implements Serializable {
     }
 
     public void setFechaHora(String dia, String hora) throws ParseException {
-        this.fechaHora = dateFormat.parse(dia + " " + hora);
+        this.dia = dia;
+        this.hora = hora;
+        this.fechaHora = dateFormat.parse(this.dia + " " + this.hora);
     }
 
     public String getIdPaciente() {
@@ -60,6 +66,22 @@ public class Cita implements Serializable {
 
     public String getUniqueId() {
         return uniqueId;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Paciente getPaciente(PacienteController pacienteController) {

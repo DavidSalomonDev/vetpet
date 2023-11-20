@@ -39,11 +39,11 @@ public class CrearObjetos {
         pacientes.forEach(paciente -> System.out.println(Data.objectToJson(paciente)));
          */
 
-        Cita cita2 = new Cita("3d3faa36-f046-45fe-a7fc-5a46ec1b6917",
-                "2023-11-13",
+        Cita cita1 = new Cita("3d3faa36-f046-45fe-a7fc-5a46ec1b6917",
+                "2023-11-12",
                 "5:00 PM",
                 "Dolor de estómago");
-        citaController.agregarCita(cita2);
+        citaController.agregarCita(cita1);
 
         List<Cita> citas = citaController.getCitas();
         System.out.println("Citas registradas:");

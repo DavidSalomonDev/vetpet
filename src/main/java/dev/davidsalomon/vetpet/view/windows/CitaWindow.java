@@ -3,6 +3,7 @@ package dev.davidsalomon.vetpet.view.windows;
 import dev.davidsalomon.vetpet.controller.CitaController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.view.panels.AgregarCitaPanel;
+import dev.davidsalomon.vetpet.view.panels.EditarCitaPanel;
 import dev.davidsalomon.vetpet.view.panels.MostrarCitasPanel;
 import java.awt.BorderLayout;
 import javax.swing.*;
@@ -27,13 +28,13 @@ public class CitaWindow extends JFrame {
         JPanel agregarPanel = createAgregarPanel();
 
         JPanel mostrarPanel = createMostrarPanel();
-        /*
         JPanel editarPanel = createEditarPanel();
-        JPanel borrarPanel = createBorrarPanel();
+        /* JPanel borrarPanel = createBorrarPanel();
          */
 
         tabbedPane.addTab("Agendar cita", agregarPanel);
         tabbedPane.addTab("Mostrar citas", mostrarPanel);
+        tabbedPane.addTab("Editar citas", editarPanel);
 
         // Agregar el JTabbedPane al JFrame
         add(tabbedPane);
@@ -57,13 +58,26 @@ public class CitaWindow extends JFrame {
 
     private JPanel createMostrarPanel() {
         // Crear un nuevo MostrarCitasPanel pasándole el controlador
-        MostrarCitasPanel mostrarCitasPanel = new MostrarCitasPanel(citaController, pacienteController);
+        MostrarCitasPanel mostrarCitasPanel = new MostrarCitasPanel(pacienteController, citaController);
 
         // Crear un panel contenedor
         JPanel panel = new JPanel(new BorderLayout());
 
         // Agregar el MostrarPacientesPanel al panel contenedor
         panel.add(mostrarCitasPanel, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JPanel createEditarPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setSize(800, 600);
+
+        // Crear instancia de AgregarPacientePanel
+        EditarCitaPanel editarCitaPanel = new EditarCitaPanel(pacienteController, citaController);
+
+        // Agregar AgregarPacientePanel al panel principal
+        panel.add(editarCitaPanel, BorderLayout.CENTER);
 
         return panel;
     }

@@ -14,8 +14,8 @@ public class EditarPacientePanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private final PacienteController pacienteController;
-    private final JTextField idTextField;
-    private JTextField nombreTextField, duenoTextField, edadTextField, categoriaTextField,
+
+    private JTextField idTextField, nombreTextField, duenoTextField, edadTextField, categoriaTextField,
             razaTextField, sexoTextField, alturaTextField, pesoTextField, pelajeTextField;
 
     public EditarPacientePanel(PacienteController pacienteController) {

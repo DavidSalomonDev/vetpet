@@ -24,22 +24,20 @@ public class CitaController {
         guardarCitasEnArchivo();
     }
 
-    /*
-
-    public void editarCita(Date fechaHora, Cita nuevaCita) {
+    public void editarCita(String idCita, Cita nuevaCita) {
         for (Cita cita : citas) {
-            if (cita.getFechaHora().equals(fechaHora)) {
+            if (cita.getUniqueId().equals(idCita)) {
                 // Actualizar los datos de la cita
-                cita.setCita(nuevaCita);
+                cita.setDia(nuevaCita.getDia());
+                cita.setHora(nuevaCita.getHora());
                 cita.setMotivo(nuevaCita.getMotivo());
-                // Actualizar los demás atributos...
+
                 guardarCitasEnArchivo();
                 break;
             }
         }
     }
 
-     */
     public void eliminarCita(Date fechaHora) {
         citas.removeIf(cita -> cita.getFechaHora().equals(fechaHora));
         guardarCitasEnArchivo();

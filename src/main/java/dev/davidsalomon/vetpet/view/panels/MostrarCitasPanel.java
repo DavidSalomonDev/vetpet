@@ -15,7 +15,7 @@ public class MostrarCitasPanel extends JPanel {
     private final JTable citasTable;
     private final DefaultTableModel tableModel;
 
-    public MostrarCitasPanel(CitaController citaController, PacienteController pacienteController) {
+    public MostrarCitasPanel(PacienteController pacienteController, CitaController citaController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
 
@@ -83,7 +83,7 @@ public class MostrarCitasPanel extends JPanel {
     private void autoAjustarColumnas(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
-            int width = 30; // Ancho mínimo
+            int width = 50; // Ancho mínimo
             for (int row = 0; row < table.getRowCount(); row++) {
                 TableCellRenderer renderer = table.getCellRenderer(row, column);
                 Component comp = table.prepareRenderer(renderer, row, column);
