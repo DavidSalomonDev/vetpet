@@ -2,8 +2,8 @@ package dev.davidsalomon.vetpet.controller;
 
 import dev.davidsalomon.vetpet.model.Cita;
 import java.io.*;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CitaController {
@@ -24,12 +24,11 @@ public class CitaController {
         guardarCitasEnArchivo();
     }
 
-    public void editarCita(String idCita, Cita nuevaCita) {
+    public void editarCita(String idCita, Cita nuevaCita) throws ParseException {
         for (Cita cita : citas) {
             if (cita.getUniqueId().equals(idCita)) {
                 // Actualizar los datos de la cita
-                cita.setDia(nuevaCita.getDia());
-                cita.setHora(nuevaCita.getHora());
+                cita.setFechaHora(nuevaCita.getDia(), nuevaCita.getHora());
                 cita.setMotivo(nuevaCita.getMotivo());
 
                 guardarCitasEnArchivo();
@@ -38,8 +37,8 @@ public class CitaController {
         }
     }
 
-    public void eliminarCita(Date fechaHora) {
-        citas.removeIf(cita -> cita.getFechaHora().equals(fechaHora));
+    public void eliminarCita(String id) {
+        citas.removeIf(cita -> cita.getUniqueId().equals(id));
         guardarCitasEnArchivo();
     }
 
