@@ -89,8 +89,8 @@ public class MainWindow extends JFrame {
     }
 
     private void abrirVentanaExpedientes() {
-        // Aquí puedes implementar la lógica para abrir la ventana de gestión de expedientes
-        JOptionPane.showMessageDialog(this, "Implementa la lógica para la gestión de expedientes", "Gestión de Expedientes", JOptionPane.INFORMATION_MESSAGE);
+        new ExpedienteWindow(new PacienteController(), new CitaController(), new VacunaController());
+
     }
 
     private void abrirVentanaCobros() {

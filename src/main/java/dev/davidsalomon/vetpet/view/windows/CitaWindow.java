@@ -39,7 +39,7 @@ public class CitaWindow extends JFrame {
 
         // Agregar el JTabbedPane al JFrame
         add(tabbedPane);
-
+        setLocationRelativeTo(null);
         // Hacer visible el JFrame
         setVisible(true);
     }

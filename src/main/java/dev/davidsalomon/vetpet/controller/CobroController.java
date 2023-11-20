@@ -3,7 +3,6 @@ package dev.davidsalomon.vetpet.controller;
 import dev.davidsalomon.vetpet.model.Cobro;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CobroController {
@@ -21,11 +20,6 @@ public class CobroController {
 
     public void agregarCobro(Cobro cobro) {
         cobros.add(cobro);
-        guardarCobrosEnArchivo();
-    }
-
-    public void eliminarCobro(Date fechaCobro) {
-        cobros.removeIf(cobro -> cobro.getFechaCobro().equals(fechaCobro));
         guardarCobrosEnArchivo();
     }
 
@@ -49,5 +43,4 @@ public class CobroController {
         }
     }
 
-    // Otros métodos según sea necesario
 }

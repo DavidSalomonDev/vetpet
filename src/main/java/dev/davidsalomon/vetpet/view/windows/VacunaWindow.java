@@ -33,7 +33,7 @@ public class VacunaWindow extends JFrame {
 
         // Agregar el JTabbedPane al JFrame
         add(tabbedPane);
-
+        setLocationRelativeTo(null);
         // Hacer visible el JFrame
         setVisible(true);
     }
