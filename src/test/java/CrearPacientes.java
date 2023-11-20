@@ -1,17 +1,15 @@
 
-import dev.davidsalomon.vetpet.controller.CitaController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
-import dev.davidsalomon.vetpet.model.Cita;
+import dev.davidsalomon.vetpet.model.Paciente;
 import dev.davidsalomon.vetpet.utils.Data;
 import java.util.List;
 
-public class CrearObjetos {
+public class CrearPacientes {
 
     public static void main(String[] args) {
 
         PacienteController pacienteController = new PacienteController();
-        CitaController citaController = new CitaController();
-        /*
+
         Paciente paciente1 = new Paciente("Pluton", "David", 3, "Perro", "Pastor Alemán", "M", 5, 5, "Profundo", "2022-01-01");
         Paciente paciente2 = new Paciente("Luna", "Maria", 2, "Gato", "Siames", "H", 3, 4, "Corto", "2022-02-15");
         Paciente paciente3 = new Paciente("Max", "Juan", 4, "Perro", "Golden Retriever", "M", 6, 7, "Largo", "2021-12-10");
@@ -37,17 +35,7 @@ public class CrearObjetos {
         List<Paciente> pacientes = pacienteController.getPacientes();
         System.out.println("Pacientes registrados:");
         pacientes.forEach(paciente -> System.out.println(Data.objectToJson(paciente)));
-         */
 
-        Cita cita1 = new Cita("3d3faa36-f046-45fe-a7fc-5a46ec1b6917",
-                "2023-11-12",
-                "5:00 PM",
-                "Dolor de estómago");
-        citaController.agregarCita(cita1);
-
-        List<Cita> citas = citaController.getCitas();
-        System.out.println("Citas registradas:");
-        citas.forEach(paciente -> System.out.println(Data.objectToJson(paciente)));
     }
 
 }

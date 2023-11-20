@@ -62,5 +62,4 @@ public class CitaController {
         }
     }
 
-    // Otros métodos según sea necesario
 }

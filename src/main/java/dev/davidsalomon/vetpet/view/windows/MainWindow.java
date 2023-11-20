@@ -2,6 +2,7 @@ package dev.davidsalomon.vetpet.view.windows;
 
 import dev.davidsalomon.vetpet.controller.CitaController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
+import dev.davidsalomon.vetpet.controller.VacunaController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
@@ -84,8 +85,7 @@ public class MainWindow extends JFrame {
     }
 
     private void abrirVentanaVacunas() {
-        // Aquí puedes implementar la lógica para abrir la ventana de gestión de vacunas
-        JOptionPane.showMessageDialog(this, "Implementa la lógica para la gestión de vacunas", "Gestión de Vacunas", JOptionPane.INFORMATION_MESSAGE);
+        new VacunaWindow(new PacienteController(), new VacunaController());
     }
 
     private void abrirVentanaExpedientes() {

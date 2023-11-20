@@ -3,7 +3,6 @@ package dev.davidsalomon.vetpet.controller;
 import dev.davidsalomon.vetpet.model.Vacuna;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class VacunaController {
@@ -24,8 +23,8 @@ public class VacunaController {
         guardarVacunasEnArchivo();
     }
 
-    public void eliminarVacuna(Date fechaVacuna) {
-        vacunas.removeIf(vacuna -> vacuna.getFechaVacuna().equals(fechaVacuna));
+    public void eliminarVacuna(String id) {
+        vacunas.removeIf(vacuna -> vacuna.getUniqueId().equals(id));
         guardarVacunasEnArchivo();
     }
 
@@ -49,5 +48,4 @@ public class VacunaController {
         }
     }
 
-    // Otros métodos según sea necesario
 }

@@ -20,6 +20,7 @@ public class CitaWindow extends JFrame {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
         tabbedPane = new JTabbedPane();
+
         // Configuración básica del JFrame
         setTitle("Gestión de Citas - VetPetClinic");
         setSize(800, 600);
@@ -27,7 +28,6 @@ public class CitaWindow extends JFrame {
 
         // Crear los paneles para los diferentes menús
         JPanel agregarPanel = createAgregarPanel();
-
         JPanel mostrarPanel = createMostrarPanel();
         JPanel editarPanel = createEditarPanel();
         JPanel declinarPanel = createDeclinarPanel();
