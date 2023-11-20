@@ -3,6 +3,7 @@ package dev.davidsalomon.vetpet.view.windows;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.controller.VacunaController;
 import dev.davidsalomon.vetpet.view.panels.AgregarVacunaPanel;
+import dev.davidsalomon.vetpet.view.panels.MostrarVacunasPanel;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
@@ -25,10 +26,10 @@ public class VacunaWindow extends JFrame {
 
         // Crear los paneles para los diferentes menús
         JPanel agregarPanel = createAgregarPanel();
-        //JPanel mostrarPanel = createMostrarPanel();
+        JPanel mostrarPanel = createMostrarPanel();
 
         tabbedPane.addTab("Aplicar Vacuna", agregarPanel);
-        //tabbedPane.addTab("Mostrar citas", mostrarPanel);
+        tabbedPane.addTab("Mostrar vacunas", mostrarPanel);
 
         // Agregar el JTabbedPane al JFrame
         add(tabbedPane);
@@ -49,7 +50,7 @@ public class VacunaWindow extends JFrame {
 
         return panel;
     }
-    /*
+
     private JPanel createMostrarPanel() {
         // Crear un nuevo MostrarCitasPanel pasándole el controlador
         MostrarVacunasPanel mostrarVacunasPanel = new MostrarVacunasPanel(pacienteController, vacunaController);
@@ -62,5 +63,5 @@ public class VacunaWindow extends JFrame {
 
         return panel;
     }
-     */
+
 }
