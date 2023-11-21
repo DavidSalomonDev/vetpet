@@ -1,6 +1,7 @@
 package dev.davidsalomon.vetpet.view.windows;
 
 import dev.davidsalomon.vetpet.controller.CitaController;
+import dev.davidsalomon.vetpet.controller.CobroController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.controller.VacunaController;
 import java.awt.*;
@@ -94,8 +95,7 @@ public class MainWindow extends JFrame {
     }
 
     private void abrirVentanaCobros() {
-        // Aquí puedes implementar la lógica para abrir la ventana de gestión de cobros
-        JOptionPane.showMessageDialog(this, "Implementa la lógica para la gestión de cobros", "Gestión de Cobros", JOptionPane.INFORMATION_MESSAGE);
+        new CobroWindow(new PacienteController(), new CobroController());
     }
 
 }

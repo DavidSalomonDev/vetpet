@@ -1,25 +1,26 @@
 package dev.davidsalomon.vetpet.view.panels;
 
+import dev.davidsalomon.vetpet.controller.CobroController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
-import dev.davidsalomon.vetpet.controller.VacunaController;
+import dev.davidsalomon.vetpet.model.Cobro;
 import dev.davidsalomon.vetpet.model.Paciente;
-import dev.davidsalomon.vetpet.model.Vacuna;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
-public class AgregarVacunaPanel extends JPanel {
+public class AgregarCobroPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private final VacunaController vacunaController;
-    private final PacienteController pacienteController;
 
-    private JTextField idPacienteTextField, nombreVacunaTextField, fechaTextField;
+    private final PacienteController pacienteController;
+    private final CobroController cobroController;
+
+    private JTextField idPacienteTextField, fechaTextField, montoTextField, descripcionTextField;
     private final JTextArea infoTextArea;
 
-    public AgregarVacunaPanel(PacienteController pacienteController, VacunaController vacunaController) {
+    public AgregarCobroPanel(PacienteController pacienteController, CobroController cobroController) {
         this.pacienteController = pacienteController;
-        this.vacunaController = vacunaController;
+        this.cobroController = cobroController;
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -51,20 +52,22 @@ public class AgregarVacunaPanel extends JPanel {
         add(cargarInfoButton, gbc);
 
         addLabelAndTextField("", gbc);
-        addLabelAndTextField("Nombre de la vacuna:", gbc);
-        addLabelAndTextField("Fecha:", gbc);
+        addLabelAndTextField("Fecha de cobro:", gbc);
+        addLabelAndTextField("Monto:", gbc);
+        addLabelAndTextField("Descripción:", gbc);
 
-        JButton aplicarVacunaButton = new JButton("Aplicar vacuna");
+        JButton aplicarVacunaButton = new JButton("Realizar Cobro");
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         aplicarVacunaButton.addActionListener((ActionEvent e) -> {
-            agregarNuevaVacuna();
+            agregarNuevoCobro();
         });
         add(aplicarVacunaButton, gbc);
         setVisible(true);
+
     }
 
     private void addLabelAndTextField(String labelText, GridBagConstraints gbc) {
@@ -83,10 +86,12 @@ public class AgregarVacunaPanel extends JPanel {
         switch (labelText) {
             case "Id del Paciente:" ->
                 idPacienteTextField = textField;
-            case "Nombre de la vacuna:" ->
-                nombreVacunaTextField = textField;
-            case "Fecha:" ->
+            case "Fecha de cobro:" ->
                 fechaTextField = textField;
+            case "Monto:" ->
+                montoTextField = textField;
+            case "Descripción:" ->
+                descripcionTextField = textField;
             default -> {
             }
 
@@ -94,23 +99,20 @@ public class AgregarVacunaPanel extends JPanel {
         gbc.gridy++;
     }
 
-    private void agregarNuevaVacuna() {
+    private void agregarNuevoCobro() {
         try {
             String idPaciente = idPacienteTextField.getText();
-            String nombreVacuna = nombreVacunaTextField.getText();
+            String monto = montoTextField.getText();
             String fecha = fechaTextField.getText();
+            String descripcion = descripcionTextField.getText();
 
-            Vacuna nuevaVacuna = new Vacuna(nombreVacuna, fecha, idPaciente);
-            Paciente pacienteEncontrado = nuevaVacuna.getPaciente(pacienteController);
-            nuevaVacuna.setAlturaEnMomento(pacienteEncontrado.getAltura());
-            nuevaVacuna.setPesoEnMomento(pacienteEncontrado.getPeso());
-            nuevaVacuna.setEdadEnMomento(pacienteEncontrado.getEdad());
+            Cobro nuevoCobro = new Cobro(idPaciente, fecha, Double.parseDouble(monto), descripcion);
 
             // Agregar el paciente al controlador
-            vacunaController.agregarVacuna(nuevaVacuna);
+            cobroController.agregarCobro(nuevoCobro);
 
             // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Vacuna aplicada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cobro aplicado exitósamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             // Limpiar los campos de texto después de agregar el paciente
             limpiarCampos();
@@ -151,9 +153,9 @@ public class AgregarVacunaPanel extends JPanel {
     private void limpiarCampos() {
 
         idPacienteTextField.setText("");
-        nombreVacunaTextField.setText("");
+        descripcionTextField.setText("");
         fechaTextField.setText("");
+        montoTextField.setText("");
         infoTextArea.setText("");
     }
-
 }
