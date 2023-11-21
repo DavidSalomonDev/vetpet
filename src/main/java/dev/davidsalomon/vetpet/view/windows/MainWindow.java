@@ -13,7 +13,7 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         setTitle("Menú Principal - VetPet Clinic");
-        setSize(600, 600);
+        setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panelPrincipal = new JPanel(new GridBagLayout());
