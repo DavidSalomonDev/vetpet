@@ -77,4 +77,18 @@ public class CitaController {
         return false; // No hay dos citas en el mismo día
     }
 
+    public boolean validarDisponibilidadCita(String idPaciente, String nuevoDia, String nuevaHora) {
+        // Obtener y mostrar información de citas
+        List<Cita> citas = getCitas();
+
+        // Verificar si ya existe una cita para el mismo día y hora
+        for (Cita cita : citas) {
+            if (cita.getIdPaciente().equals(idPaciente) && cita.getDia().equals(nuevoDia) && cita.getHora().equalsIgnoreCase(nuevaHora)) {
+                return false; // La cita ya está ocupada
+            }
+        }
+
+        return true; // La cita está disponible
+    }
+
 }

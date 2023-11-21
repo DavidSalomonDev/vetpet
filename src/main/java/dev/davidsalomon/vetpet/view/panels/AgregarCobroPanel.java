@@ -106,6 +106,12 @@ public class AgregarCobroPanel extends JPanel {
             String fecha = fechaTextField.getText();
             String descripcion = descripcionTextField.getText();
 
+            // Validar el formato del día (yyyy-mm-dd)
+            if (!validarFormatoDia(fechaTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
             Cobro nuevoCobro = new Cobro(idPaciente, fecha, Double.parseDouble(monto), descripcion);
 
             // Agregar el paciente al controlador
@@ -157,5 +163,11 @@ public class AgregarCobroPanel extends JPanel {
         fechaTextField.setText("");
         montoTextField.setText("");
         infoTextArea.setText("");
+    }
+
+    private boolean validarFormatoDia(String dia) {
+        // Utiliza una expresión regular para validar el formato yyyy-mm-dd
+        String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
+        return dia.matches(formatoDiaRegex);
     }
 }

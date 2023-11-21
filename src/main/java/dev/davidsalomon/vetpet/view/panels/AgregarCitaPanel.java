@@ -115,6 +115,18 @@ public class AgregarCitaPanel extends JPanel {
             String hora = horaTextField.getText();
             String motivo = motivoTextField.getText();
 
+            // Validar el formato del día (yyyy-mm-dd)
+            if (!validarFormatoDia(dia)) {
+                JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
+            // Validar el formato de la hora (hh:mm AM/PM)
+            if (!validarFormatoHora(hora)) {
+                JOptionPane.showMessageDialog(this, "Formato de hora no válido. Use hh:mm AM/PM.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
             // Verificar si ya hay dos citas en el mismo día
             if (citaController.existeDosCitasEnMismoDia(idPaciente, dia)) {
                 JOptionPane.showMessageDialog(this, "No se puede agregar una tercera cita en el mismo día.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -133,7 +145,7 @@ public class AgregarCitaPanel extends JPanel {
             limpiarCampos();
         } catch (NumberFormatException e) {
             // En caso de error de formato, mostrar cuadro de diálogo
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos, y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos, y asegúrese de usar el formato correcto (día = yyyy-mm-dd y hora = hh:mm AM/PM). ", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -178,6 +190,18 @@ public class AgregarCitaPanel extends JPanel {
         motivoTextField.setText("");
         infoTextArea.setText("");
 
+    }
+
+    private boolean validarFormatoDia(String dia) {
+        // Utiliza una expresión regular para validar el formato yyyy-mm-dd
+        String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
+        return dia.matches(formatoDiaRegex);
+    }
+
+    private boolean validarFormatoHora(String hora) {
+        // Utiliza una expresión regular para validar el formato hh:mm AM/PM
+        String formatoHoraRegex = "(1?[0-9]):[0-5][0-9]\\s?(AM|PM|am|pm)";
+        return hora.matches(formatoHoraRegex);
     }
 
 }

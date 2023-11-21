@@ -90,7 +90,7 @@ public class MainWindow extends JFrame {
     }
 
     private void abrirVentanaExpedientes() {
-        new ExpedienteWindow(new PacienteController(), new CitaController(), new VacunaController());
+        new ExpedienteWindow(new PacienteController(), new CitaController(), new VacunaController(), new CobroController());
 
     }
 

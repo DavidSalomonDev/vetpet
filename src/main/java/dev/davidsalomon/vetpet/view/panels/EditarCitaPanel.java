@@ -154,29 +154,47 @@ public class EditarCitaPanel extends JPanel {
 
         // Verificar que el ID no esté vacío
         if (idCita.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el ID del paciente a editar", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingrese el ID de la cita a editar", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Buscar el paciente con el ID proporcionado
+        // Buscar la cita con el ID proporcionado
         Cita citaExistente = buscarCitaPorID(idCita);
         Cita nuevaDataCita;
 
         if (citaExistente == null) {
-            JOptionPane.showMessageDialog(this, "No se encontró un paciente con el ID proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se encontró una cita con el ID proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Validar el formato del día (yyyy-mm-dd)
+            if (!validarFormatoDia(diaTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
+            // Validar el formato de la hora (hh:mm AM/PM)
+            if (!validarFormatoHora(horaTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Formato de hora no válido. Use hh:mm AM/PM.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
             nuevaDataCita = new Cita(
                     null,
                     diaTextField.getText(),
                     horaTextField.getText(),
                     motivoTextField.getText());
 
+            // Verificar disponibilidad de la cita
+            if (!citaController.validarDisponibilidadCita(citaExistente.getIdPaciente(), nuevaDataCita.getDia(), nuevaDataCita.getHora())) {
+                JOptionPane.showMessageDialog(this, "Ya hay una cita programada para el mismo día y hora", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             citaController.editarCita(idCita, nuevaDataCita);
 
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Cita editada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Limpiar los campos de texto después de editar el paciente
+            // Limpiar los campos de texto después de editar la cita
             limpiarCampos();
         }
     }
@@ -188,5 +206,17 @@ public class EditarCitaPanel extends JPanel {
         diaTextField.setText("");
         horaTextField.setText("");
         motivoTextField.setText("");
+    }
+
+    private boolean validarFormatoDia(String dia) {
+        // Utiliza una expresión regular para validar el formato yyyy-mm-dd
+        String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
+        return dia.matches(formatoDiaRegex);
+    }
+
+    private boolean validarFormatoHora(String hora) {
+        // Utiliza una expresión regular para validar el formato hh:mm AM/PM
+        String formatoHoraRegex = "(1?[0-9]):[0-5][0-9]\\s?(AM|PM|am|pm)";
+        return hora.matches(formatoHoraRegex);
     }
 }

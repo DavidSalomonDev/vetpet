@@ -100,6 +100,11 @@ public class AgregarVacunaPanel extends JPanel {
             String nombreVacuna = nombreVacunaTextField.getText();
             String fecha = fechaTextField.getText();
 
+            // Validar el formato del día (yyyy-mm-dd)
+            if (!validarFormatoDia(fechaTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
             Vacuna nuevaVacuna = new Vacuna(nombreVacuna, fecha, idPaciente);
             Paciente pacienteEncontrado = nuevaVacuna.getPaciente(pacienteController);
             nuevaVacuna.setAlturaEnMomento(pacienteEncontrado.getAltura());
@@ -154,6 +159,12 @@ public class AgregarVacunaPanel extends JPanel {
         nombreVacunaTextField.setText("");
         fechaTextField.setText("");
         infoTextArea.setText("");
+    }
+
+    private boolean validarFormatoDia(String dia) {
+        // Utiliza una expresión regular para validar el formato yyyy-mm-dd
+        String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
+        return dia.matches(formatoDiaRegex);
     }
 
 }

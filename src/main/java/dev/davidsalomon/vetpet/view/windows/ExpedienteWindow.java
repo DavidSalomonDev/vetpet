@@ -1,9 +1,11 @@
 package dev.davidsalomon.vetpet.view.windows;
 
 import dev.davidsalomon.vetpet.controller.CitaController;
+import dev.davidsalomon.vetpet.controller.CobroController;
 import dev.davidsalomon.vetpet.controller.PacienteController;
 import dev.davidsalomon.vetpet.controller.VacunaController;
 import dev.davidsalomon.vetpet.model.Cita;
+import dev.davidsalomon.vetpet.model.Cobro;
 import dev.davidsalomon.vetpet.model.Paciente;
 import dev.davidsalomon.vetpet.model.Vacuna;
 import java.awt.*;
@@ -19,14 +21,17 @@ public class ExpedienteWindow extends JFrame {
     private final PacienteController pacienteController;
     private CitaController citaController;
     private final VacunaController vacunaController;
+    private final CobroController cobroController;
+
     private JTextField idTextField;
     private final JEditorPane infoEditorPane;
     private final JScrollPane infoScrollPane;
 
-    public ExpedienteWindow(PacienteController pacienteController, CitaController citaController, VacunaController vacunaController) {
+    public ExpedienteWindow(PacienteController pacienteController, CitaController citaController, VacunaController vacunaController, CobroController cobroController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
         this.vacunaController = vacunaController;
+        this.cobroController = cobroController;
 
         // Configuración básica del JFrame
         setTitle("Expediente de pacientes - VetPetClinic");
@@ -96,6 +101,7 @@ public class ExpedienteWindow extends JFrame {
         Paciente paciente = buscarPaciente(id);
         List<Cita> citas = obtenerCitasPorIdPaciente(id);
         List<Vacuna> vacunas = obtenerVacunasPorIdPaciente(id);
+        List<Cobro> cobros = obtenerCobrosPorIdPaciente(id);
 
         if (paciente != null) {
             // Mostrar información del paciente
@@ -114,7 +120,8 @@ public class ExpedienteWindow extends JFrame {
                     + "Fecha de Nacimiento: <span style='color: #1E90FF;'>" + paciente.getFechaNacimiento() + "</span>"
                     + "</div>"
                     + generarHTMLCitas(citas)
-                    + generarHTMLVacunas(vacunas);
+                    + generarHTMLVacunas(vacunas)
+                    + generarHTMLCobros(cobros);
 
             infoEditorPane.setText(info);
 
@@ -156,8 +163,8 @@ public class ExpedienteWindow extends JFrame {
                 .append("<h1><strong>Citas</strong></h1><hr>");
 
         for (Cita cita : citas) {
-            String infoCita = "<p>Fecha: " + cita.getFechaHora() + "<br>"
-                    + "Motivo: " + cita.getMotivo() + "</p>";
+            String infoCita = "Fecha:  <span style='color: #1E90FF;'>" + cita.getFechaHora() + "</span><br>"
+                    + "Motivo:  <span style='color: #1E90FF;'>" + cita.getMotivo() + "</span><br>";
             htmlCitas.append(infoCita);
         }
 
@@ -187,11 +194,11 @@ public class ExpedienteWindow extends JFrame {
                 .append("<h1><strong>Vacunas</strong></h1><hr>");
 
         for (Vacuna vacuna : vacunas) {
-            String infoVacuna = "<p>Fecha: " + vacuna.getFechaVacuna() + "<br>"
-                    + "Nombre: " + vacuna.getNombreVacuna() + "</p>"
-                    + "Altura al momento: " + vacuna.getAlturaEnMomento() + "</p>"
-                    + "Peso al momento: " + vacuna.getPesoEnMomento() + "</p>"
-                    + "Edad al momento: " + vacuna.getEdadEnMomento() + "</p>";
+            String infoVacuna = "Fecha:  <span style='color: #1E90FF;'>" + vacuna.getFechaVacuna() + "</span><br>"
+                    + "Nombre: <span style='color: #1E90FF;'> " + vacuna.getNombreVacuna() + "</span><br>"
+                    + "Altura al momento: <span style='color: #1E90FF;'> " + vacuna.getAlturaEnMomento() + "</span><br>"
+                    + "Peso al momento:  <span style='color: #1E90FF;'>" + vacuna.getPesoEnMomento() + "</span><br>"
+                    + "Edad al momento:  <span style='color: #1E90FF;'>" + vacuna.getEdadEnMomento() + "</span><br>";
 
             htmlVacunas.append(infoVacuna);
         }
@@ -199,6 +206,39 @@ public class ExpedienteWindow extends JFrame {
         htmlVacunas.append("</div>");
 
         return htmlVacunas.toString();
+    }
+
+    public List<Cobro> obtenerCobrosPorIdPaciente(String idPaciente) {
+        List<Cobro> cobros = cobroController.getCobros();
+
+        // Filtrar las vacunas por el ID del paciente
+        List<Cobro> cobrosDelPaciente = new ArrayList<>();
+        for (Cobro cobro : cobros) {
+            if (cobro.getIdPaciente().equals(idPaciente)) {
+                cobrosDelPaciente.add(cobro);
+            }
+        }
+
+        return cobrosDelPaciente;
+    }
+
+    public String generarHTMLCobros(List<Cobro> cobros) {
+        StringBuilder htmlCobros = new StringBuilder();
+
+        htmlCobros.append("<div>")
+                .append("<h1><strong>Cobros</strong></h1><hr>");
+
+        for (Cobro cobro : cobros) {
+            String infoVacuna = "Fecha:  <span style='color: #1E90FF;'>" + cobro.getFechaCobro() + "</span><br>"
+                    + "Monto:  <span style='color: #1E90FF;'>" + cobro.getMonto() + "</span><br>"
+                    + "Descripción:  <span style='color: #1E90FF;'>" + cobro.getDescripcion() + "</span><br>";
+
+            htmlCobros.append(infoVacuna);
+        }
+
+        htmlCobros.append("</div>");
+
+        return htmlCobros.toString();
     }
 
 }
