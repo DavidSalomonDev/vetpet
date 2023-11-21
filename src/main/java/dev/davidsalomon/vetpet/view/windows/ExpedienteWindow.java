@@ -188,7 +188,11 @@ public class ExpedienteWindow extends JFrame {
 
         for (Vacuna vacuna : vacunas) {
             String infoVacuna = "<p>Fecha: " + vacuna.getFechaVacuna() + "<br>"
-                    + "Nombre: " + vacuna.getNombreVacuna() + "</p>";
+                    + "Nombre: " + vacuna.getNombreVacuna() + "</p>"
+                    + "Altura al momento: " + vacuna.getAlturaEnMomento() + "</p>"
+                    + "Peso al momento: " + vacuna.getPesoEnMomento() + "</p>"
+                    + "Edad al momento: " + vacuna.getEdadEnMomento() + "</p>";
+
             htmlVacunas.append(infoVacuna);
         }
 

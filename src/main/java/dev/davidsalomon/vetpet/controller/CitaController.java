@@ -62,4 +62,19 @@ public class CitaController {
         }
     }
 
+    public boolean existeDosCitasEnMismoDia(String idPaciente, String dia) {
+        int contadorCitas = 0;
+
+        for (Cita cita : getCitas()) {
+            if (cita.getIdPaciente().equals(idPaciente) && cita.getDia().equals(dia)) {
+                contadorCitas++;
+                if (contadorCitas >= 2) {
+                    return true; // Ya hay dos citas en el mismo día
+                }
+            }
+        }
+
+        return false; // No hay dos citas en el mismo día
+    }
+
 }

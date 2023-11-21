@@ -115,6 +115,12 @@ public class AgregarCitaPanel extends JPanel {
             String hora = horaTextField.getText();
             String motivo = motivoTextField.getText();
 
+            // Verificar si ya hay dos citas en el mismo día
+            if (citaController.existeDosCitasEnMismoDia(idPaciente, dia)) {
+                JOptionPane.showMessageDialog(this, "No se puede agregar una tercera cita en el mismo día.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la condición no se cumple
+            }
+
             Cita nuevaCita = new Cita(idPaciente, dia, hora, motivo);
 
             // Agregar el paciente al controlador
@@ -170,6 +176,8 @@ public class AgregarCitaPanel extends JPanel {
         diaTextField.setText("");
         horaTextField.setText("");
         motivoTextField.setText("");
+        infoTextArea.setText("");
 
     }
+
 }
