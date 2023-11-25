@@ -7,6 +7,16 @@ import dev.davidsalomon.vetpet.view.panels.MostrarVacunasPanel;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
+/**
+ * Window for managing vaccines in VetPet Clinic.
+ *
+ * <p>
+ * This window provides tabs for applying vaccines and displaying vaccine
+ * information.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class VacunaWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -14,27 +24,36 @@ public class VacunaWindow extends JFrame {
     private final VacunaController vacunaController;
     private final PacienteController pacienteController;
 
+    /**
+     * Constructor for the vaccine management window.
+     *
+     * @param pacienteController The patient controller for managing
+     * patient-related actions.
+     * @param vacunaController The vaccine controller for managing
+     * vaccine-related actions.
+     */
     public VacunaWindow(PacienteController pacienteController, VacunaController vacunaController) {
         this.pacienteController = pacienteController;
         this.vacunaController = vacunaController;
         tabbedPane = new JTabbedPane();
 
-        // Configuración básica del JFrame
+        // Basic JFrame configuration
         setTitle("Gestión de Vacunas - VetPetClinic");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crear los paneles para los diferentes menús
+        // Create panels for different menus
         JPanel agregarPanel = createAgregarPanel();
         JPanel mostrarPanel = createMostrarPanel();
 
+        // Add tabs to the JTabbedPane with descriptive names
         tabbedPane.addTab("Aplicar Vacuna", agregarPanel);
         tabbedPane.addTab("Mostrar vacunas", mostrarPanel);
 
-        // Agregar el JTabbedPane al JFrame
+        // Add the JTabbedPane to the JFrame
         add(tabbedPane);
         setLocationRelativeTo(null);
-        // Hacer visible el JFrame
+        // Make the JFrame visible
         setVisible(true);
     }
 
@@ -42,26 +61,25 @@ public class VacunaWindow extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setSize(800, 600);
 
-        // Crear instancia de AgregarPacientePanel
+        // Create an instance of AgregarVacunaPanel
         AgregarVacunaPanel agregarVacunaPanel = new AgregarVacunaPanel(pacienteController, vacunaController);
 
-        // Agregar AgregarPacientePanel al panel principal
+        // Add AgregarVacunaPanel to the main panel
         panel.add(agregarVacunaPanel, BorderLayout.CENTER);
 
         return panel;
     }
 
     private JPanel createMostrarPanel() {
-        // Crear un nuevo MostrarCitasPanel pasándole el controlador
+        // Create a new MostrarVacunasPanel passing the controllers
         MostrarVacunasPanel mostrarVacunasPanel = new MostrarVacunasPanel(pacienteController, vacunaController);
 
-        // Crear un panel contenedor
+        // Create a container panel
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Agregar el MostrarPacientesPanel al panel contenedor
+        // Add the MostrarVacunasPanel to the container panel
         panel.add(mostrarVacunasPanel, BorderLayout.CENTER);
 
         return panel;
     }
-
 }

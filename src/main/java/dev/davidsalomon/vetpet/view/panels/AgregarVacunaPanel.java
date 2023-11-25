@@ -8,6 +8,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Panel para agregar nuevas vacunas aplicadas a los pacientes en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario ingresar la información necesaria para agregar
+ * una nueva vacuna, como el ID del paciente, nombre de la vacuna, y la fecha de
+ * aplicación.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class AgregarVacunaPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +28,12 @@ public class AgregarVacunaPanel extends JPanel {
     private JTextField idPacienteTextField, nombreVacunaTextField, fechaTextField;
     private final JTextArea infoTextArea;
 
+    /**
+     * Constructor del panel de agregar vacunas.
+     *
+     * @param pacienteController Controlador de pacientes.
+     * @param vacunaController Controlador de vacunas.
+     */
     public AgregarVacunaPanel(PacienteController pacienteController, VacunaController vacunaController) {
         this.pacienteController = pacienteController;
         this.vacunaController = vacunaController;
@@ -105,23 +122,24 @@ public class AgregarVacunaPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
                 return; // Salir del método si la condición no se cumple
             }
+
             Vacuna nuevaVacuna = new Vacuna(nombreVacuna, fecha, idPaciente);
             Paciente pacienteEncontrado = nuevaVacuna.getPaciente(pacienteController);
             nuevaVacuna.setAlturaEnMomento(pacienteEncontrado.getAltura());
             nuevaVacuna.setPesoEnMomento(pacienteEncontrado.getPeso());
             nuevaVacuna.setEdadEnMomento(pacienteEncontrado.getEdad());
 
-            // Agregar el paciente al controlador
+            // Agregar la vacuna al controlador
             vacunaController.agregarVacuna(nuevaVacuna);
 
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Vacuna aplicada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Limpiar los campos de texto después de agregar el paciente
+            // Limpiar los campos de texto después de agregar la vacuna
             limpiarCampos();
         } catch (NumberFormatException e) {
             // En caso de error de formato, mostrar cuadro de diálogo
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos, y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -154,7 +172,6 @@ public class AgregarVacunaPanel extends JPanel {
     }
 
     private void limpiarCampos() {
-
         idPacienteTextField.setText("");
         nombreVacunaTextField.setText("");
         fechaTextField.setText("");
@@ -166,5 +183,4 @@ public class AgregarVacunaPanel extends JPanel {
         String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
         return dia.matches(formatoDiaRegex);
     }
-
 }

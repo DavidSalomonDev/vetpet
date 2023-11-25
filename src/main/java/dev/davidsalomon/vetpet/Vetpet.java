@@ -1,27 +1,27 @@
 package dev.davidsalomon.vetpet;
 
-import dev.davidsalomon.vetpet.controller.CitaController;
-import dev.davidsalomon.vetpet.controller.CobroController;
-import dev.davidsalomon.vetpet.controller.ExpedienteController;
-import dev.davidsalomon.vetpet.controller.PacienteController;
-import dev.davidsalomon.vetpet.controller.VacunaController;
 import dev.davidsalomon.vetpet.view.windows.MainWindow;
 import javax.swing.SwingUtilities;
 
+/**
+ * Clase principal para la aplicación VetPet Clinic. Inicializa controladores
+ * para gestionar pacientes, citas, vacunas, expedientes de pacientes y
+ * facturación. Inicia la ventana principal de la aplicación utilizando Swing.
+ */
 public class Vetpet {
 
+    /**
+     * Punto de entrada principal para la aplicación VetPet Clinic.
+     *
+     * @param args Los argumentos de línea de comandos (no se utilizan en esta
+     * aplicación).
+     */
     public static void main(String[] args) {
 
-        PacienteController pacienteController = new PacienteController();
-        CitaController citaController = new CitaController();
-        VacunaController vacunaController = new VacunaController();
-        ExpedienteController expedienteController = new ExpedienteController();
-        CobroController cobroController = new CobroController();
-
+        // Inicia la ventana principal de la aplicación utilizando Swing
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
                 new MainWindow();
             }
         });

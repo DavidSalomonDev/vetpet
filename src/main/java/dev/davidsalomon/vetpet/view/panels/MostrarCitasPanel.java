@@ -6,8 +6,20 @@ import dev.davidsalomon.vetpet.model.Cita;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
+/**
+ * Panel for displaying a list of appointments.
+ *
+ * <p>
+ * This panel includes a button to update the list and a table to display
+ * appointment information.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class MostrarCitasPanel extends JPanel {
 
     private final CitaController citaController;
@@ -15,7 +27,14 @@ public class MostrarCitasPanel extends JPanel {
     private final JTable citasTable;
     private final DefaultTableModel tableModel;
 
+    /**
+     * Constructor for the panel to display appointments.
+     *
+     * @param pacienteController Patient controller.
+     * @param citaController Appointment controller.
+     */
     public MostrarCitasPanel(PacienteController pacienteController, CitaController citaController) {
+
         this.pacienteController = pacienteController;
         this.citaController = citaController;
 
@@ -24,11 +43,11 @@ public class MostrarCitasPanel extends JPanel {
         JButton actualizarButton = new JButton("Actualizar Lista");
         actualizarButton.addActionListener(e -> actualizarListaCitas());
 
-        // Panel para contener el botón
+        // Panel to contain the button
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(actualizarButton);
 
-        // Crear DefaultTableModel y JTable para mostrar pacientes
+        // Create DefaultTableModel and JTable to display appointments
         tableModel = new DefaultTableModel();
         tableModel.addColumn("No.");
         tableModel.addColumn("Número de Identificación de Cita");
@@ -39,32 +58,34 @@ public class MostrarCitasPanel extends JPanel {
 
         citasTable = new JTable(tableModel);
         citasTable.setAutoCreateRowSorter(true);
-        citasTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Deshabilitar el ajuste automático de tamaño de columna
-        citasTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Ancho preferido para la columna del número de fila
+        citasTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Disable automatic column size adjustment
+        citasTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Preferred width for the row number column
         citasTable.getColumnModel().getColumn(1).setPreferredWidth(100);
         JScrollPane scrollPane = new JScrollPane(citasTable);
 
         citasTable.setRowHeight(50);
-        // Obtener y mostrar información de pacientes
+        // Get and display appointment information
         actualizarListaCitas();
 
-        // Agregar JTable y botón al panel
+        // Add JTable and button to the panel
         add(buttonPanel, BorderLayout.NORTH);
-        // Agregar JTable al panel
+        // Add JTable to the panel
         add(scrollPane, BorderLayout.CENTER);
 
         autoAjustarColumnas(citasTable);
-
     }
 
+    /**
+     * Update the list of appointments in the table.
+     */
     public void actualizarListaCitas() {
-        // Obtener y mostrar información de pacientes
+        // Get and display appointment information
         List<Cita> citas = citaController.getCitas();
 
-        // Limpiar la tabla antes de agregar nuevos datos
+        // Clear the table before adding new data
         tableModel.setRowCount(0);
 
-        // Agregar cada paciente como una fila en la tabla
+        // Add each appointment as a row in the table
         int rowNum = 1;
         for (Cita cita : citas) {
             Object[] rowData = {
@@ -79,11 +100,11 @@ public class MostrarCitasPanel extends JPanel {
         }
     }
 
-    // Método para autoajustar las columnas de la JTable
+    // Method to automatically adjust the columns of the JTable
     private void autoAjustarColumnas(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
-            int width = 50; // Ancho mínimo
+            int width = 50; // Minimum width
             for (int row = 0; row < table.getRowCount(); row++) {
                 TableCellRenderer renderer = table.getCellRenderer(row, column);
                 Component comp = table.prepareRenderer(renderer, row, column);
@@ -92,5 +113,4 @@ public class MostrarCitasPanel extends JPanel {
             columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
-
 }

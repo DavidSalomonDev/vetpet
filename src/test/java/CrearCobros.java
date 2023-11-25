@@ -4,8 +4,16 @@ import dev.davidsalomon.vetpet.model.Cobro;
 import dev.davidsalomon.vetpet.utils.Data;
 import java.util.List;
 
+/**
+ *
+ * @author salo
+ */
 public class CrearCobros {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         CobroController cobroController = new CobroController();

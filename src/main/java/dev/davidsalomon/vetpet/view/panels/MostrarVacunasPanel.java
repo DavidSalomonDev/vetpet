@@ -6,8 +6,20 @@ import dev.davidsalomon.vetpet.model.Vacuna;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
+/**
+ * Panel for displaying a list of vaccines.
+ *
+ * <p>
+ * This panel includes a button to update the list and a table to display
+ * vaccine information.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class MostrarVacunasPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +29,12 @@ public class MostrarVacunasPanel extends JPanel {
     private final JTable vacunasTable;
     private final DefaultTableModel tableModel;
 
+    /**
+     * Constructor for the panel to display vaccines.
+     *
+     * @param pacienteController Patient controller.
+     * @param vacunaController Vaccine controller.
+     */
     public MostrarVacunasPanel(PacienteController pacienteController, VacunaController vacunaController) {
         this.pacienteController = pacienteController;
         this.vacunaController = vacunaController;
@@ -26,11 +44,11 @@ public class MostrarVacunasPanel extends JPanel {
         JButton actualizarButton = new JButton("Actualizar Lista");
         actualizarButton.addActionListener(e -> actualizarListaVacunas());
 
-        // Panel para contener el botón
+        // Panel to contain the button
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(actualizarButton);
 
-        // Crear DefaultTableModel y JTable para mostrar pacientes
+        // Create DefaultTableModel and JTable to display vaccines
         tableModel = new DefaultTableModel();
         tableModel.addColumn("No.");
         tableModel.addColumn("Número de Identificación de Vacuna");
@@ -46,28 +64,31 @@ public class MostrarVacunasPanel extends JPanel {
 
         vacunasTable.setAutoCreateRowSorter(true);
 
-        vacunasTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Ancho preferido para la columna del número de fila
+        vacunasTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Preferred width for the row number column
         vacunasTable.getColumnModel().getColumn(1).setPreferredWidth(100);
         JScrollPane scrollPane = new JScrollPane(vacunasTable);
         vacunasTable.setRowHeight(50);
-        // Obtener y mostrar información de pacientes
+        // Get and display vaccine information
         actualizarListaVacunas();
 
         add(buttonPanel, BorderLayout.NORTH);
-        // Agregar JTable al panel
+        // Add JTable to the panel
         add(scrollPane, BorderLayout.CENTER);
 
         autoAjustarColumnas(vacunasTable);
     }
 
+    /**
+     * Update the list of vaccines in the table.
+     */
     public void actualizarListaVacunas() {
-        // Obtener y mostrar información de pacientes
+        // Get and display vaccine information
         List<Vacuna> vacunas = vacunaController.getVacunas();
 
-        // Limpiar la tabla antes de agregar nuevos datos
+        // Clear the table before adding new data
         tableModel.setRowCount(0);
 
-        // Agregar cada paciente como una fila en la tabla
+        // Add each vaccine as a row in the table
         int rowNum = 1;
         for (Vacuna vacuna : vacunas) {
             Object[] rowData = {
@@ -85,11 +106,11 @@ public class MostrarVacunasPanel extends JPanel {
         }
     }
 
-    // Método para autoajustar las columnas de la JTable
+    // Method to automatically adjust the columns of the JTable
     private void autoAjustarColumnas(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
-            int width = 50; // Ancho mínimo
+            int width = 50; // Minimum width
             for (int row = 0; row < table.getRowCount(); row++) {
                 TableCellRenderer renderer = table.getCellRenderer(row, column);
                 Component comp = table.prepareRenderer(renderer, row, column);
@@ -98,5 +119,4 @@ public class MostrarVacunasPanel extends JPanel {
             columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
-
 }

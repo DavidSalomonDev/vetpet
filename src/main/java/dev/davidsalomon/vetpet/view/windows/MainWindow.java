@@ -8,94 +8,105 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Main window for VetPet Clinic management application.
+ *
+ * <p>
+ * This window provides a menu for managing patients, appointments,
+ * vaccinations, patient records, and payments.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class MainWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructor for the main window.
+     */
     public MainWindow() {
         setTitle("Menú Principal - VetPet Clinic");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panelPrincipal = new JPanel(new GridBagLayout());
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel descripcionLabel = new JLabel("<html><div style='text-align: center;'>Bienvenido a la aplicación de gestión de VetPet Clinic.</div></html>");
-        descripcionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        descripcionLabel.setVerticalAlignment(SwingConstants.CENTER);
+        JLabel descriptionLabel = new JLabel("<html><div style='text-align: center;'>Bienvenido a la aplicación de gestión de VetPet Clinic.</div></html>");
+        descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        descriptionLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        JButton pacientesButton = new JButton("Gestión de Pacientes");
-        pacientesButton.addActionListener((ActionEvent e) -> {
-            abrirVentanaPacientes();
+        JButton patientsButton = new JButton("Gestión de Pacientes");
+        patientsButton.addActionListener((ActionEvent e) -> {
+            openPatientsWindow();
         });
 
-        JButton citasButton = new JButton("Gestión de Citas");
-        citasButton.addActionListener((ActionEvent e) -> {
-            abrirVentanaCitas();
+        JButton appointmentsButton = new JButton("Gestión de Citas");
+        appointmentsButton.addActionListener((ActionEvent e) -> {
+            openAppointmentsWindow();
         });
 
-        JButton vacunasButton = new JButton("Gestión de Vacunas");
-        vacunasButton.addActionListener((ActionEvent e) -> {
-            abrirVentanaVacunas();
+        JButton vaccinesButton = new JButton("Gestión de Vacunas");
+        vaccinesButton.addActionListener((ActionEvent e) -> {
+            openVaccinesWindow();
         });
 
-        JButton expedientesButton = new JButton("Gestión de Expedientes");
-        expedientesButton.addActionListener((ActionEvent e) -> {
-            abrirVentanaExpedientes();
+        JButton recordsButton = new JButton("Gestión de Expedientes");
+        recordsButton.addActionListener((ActionEvent e) -> {
+            openRecordsWindow();
         });
 
-        JButton cobrosButton = new JButton("Gestión de Cobros");
-        cobrosButton.addActionListener((ActionEvent e) -> {
-            abrirVentanaCobros();
+        JButton paymentsButton = new JButton("Gestión de Cobros");
+        paymentsButton.addActionListener((ActionEvent e) -> {
+            openPaymentsWindow();
         });
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panelPrincipal.add(descripcionLabel, gbc);
+        mainPanel.add(descriptionLabel, gbc);
 
         gbc.gridy = 1;
-        panelPrincipal.add(pacientesButton, gbc);
+        mainPanel.add(patientsButton, gbc);
 
         gbc.gridy = 2;
-        panelPrincipal.add(citasButton, gbc);
+        mainPanel.add(appointmentsButton, gbc);
 
         gbc.gridy = 3;
-        panelPrincipal.add(vacunasButton, gbc);
+        mainPanel.add(vaccinesButton, gbc);
 
         gbc.gridy = 4;
-        panelPrincipal.add(expedientesButton, gbc);
+        mainPanel.add(recordsButton, gbc);
 
         gbc.gridy = 5;
-        panelPrincipal.add(cobrosButton, gbc);
+        mainPanel.add(paymentsButton, gbc);
 
         setLayout(new BorderLayout());
-        add(panelPrincipal, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.CENTER);
 
         setLocationRelativeTo(null);
 
         setVisible(true);
     }
 
-    private void abrirVentanaPacientes() {
+    private void openPatientsWindow() {
         new PacienteWindow(new PacienteController());
     }
 
-    private void abrirVentanaCitas() {
+    private void openAppointmentsWindow() {
         new CitaWindow(new PacienteController(), new CitaController());
     }
 
-    private void abrirVentanaVacunas() {
+    private void openVaccinesWindow() {
         new VacunaWindow(new PacienteController(), new VacunaController());
     }
 
-    private void abrirVentanaExpedientes() {
+    private void openRecordsWindow() {
         new ExpedienteWindow(new PacienteController(), new CitaController(), new VacunaController(), new CobroController());
-
     }
 
-    private void abrirVentanaCobros() {
+    private void openPaymentsWindow() {
         new CobroWindow(new PacienteController(), new CobroController());
     }
-
 }

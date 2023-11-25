@@ -6,24 +6,57 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controlador para gestionar los pacientes en el sistema.
+ *
+ * <p>
+ * Este controlador proporciona métodos para agregar, obtener, editar y dar de
+ * baja pacientes.</p>
+ *
+ * @author davidsalomon
+ * @version 2.0
+ */
 public class PacienteController {
 
     private List<Paciente> pacientes;
     private static final String ARCHIVO_PACIENTES = "src/data/pacientes.dat";
 
+    /**
+     * Constructor que inicializa la lista de pacientes cargándolos desde el
+     * archivo.
+     */
     public PacienteController() {
         this.pacientes = cargarPacientesDesdeArchivo();
     }
 
+    /**
+     * Obtiene la lista de pacientes almacenados en el sistema.
+     *
+     * @return Lista de pacientes.
+     */
     public List<Paciente> getPacientes() {
         return pacientes;
     }
 
+    /**
+     * Agrega un nuevo paciente a la lista y guarda la lista actualizada en el
+     * archivo.
+     *
+     * @param paciente Paciente a agregar.
+     */
     public void agregarPaciente(Paciente paciente) {
         pacientes.add(paciente);
         guardarPacientesEnArchivo();
     }
 
+    /**
+     * Edita un paciente existente por su identificador único y guarda la lista
+     * actualizada en el archivo.
+     *
+     * @param uniqueId Identificador único del paciente a editar.
+     * @param nuevoPaciente Nuevo objeto Paciente con los datos actualizados.
+     * @throws ParseException Si hay un error al parsear las fechas.
+     */
     public void editarPaciente(String uniqueId, Paciente nuevoPaciente) throws ParseException {
         for (Paciente paciente : pacientes) {
             if (paciente.getUniqueId().equals(uniqueId)) {
@@ -45,6 +78,12 @@ public class PacienteController {
         }
     }
 
+    /**
+     * Da de baja a un paciente existente por su identificador único y guarda la
+     * lista actualizada en el archivo.
+     *
+     * @param uniqueId Identificador único del paciente a dar de baja.
+     */
     public void darDeBajaPaciente(String uniqueId) {
         pacientes.removeIf(paciente -> paciente.getUniqueId().equals(uniqueId));
         guardarPacientesEnArchivo();
@@ -69,5 +108,4 @@ public class PacienteController {
             e.printStackTrace();
         }
     }
-
 }

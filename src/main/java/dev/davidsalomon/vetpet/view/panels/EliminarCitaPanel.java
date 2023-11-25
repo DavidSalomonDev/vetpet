@@ -7,6 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Panel para eliminar citas del sistema.
+ *
+ * <p>
+ * Este panel permite al usuario ingresar el ID de una cita, cargar su
+ * información y, si es necesario, declinar la cita.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class EliminarCitaPanel extends JPanel {
 
     private CitaController citaController;
@@ -15,6 +25,12 @@ public class EliminarCitaPanel extends JPanel {
     private JTextField idTextField;
     private JTextArea infoTextArea;
 
+    /**
+     * Constructor del panel de eliminación de citas.
+     *
+     * @param pacienteController Controlador de pacientes.
+     * @param citaController Controlador de citas.
+     */
     public EliminarCitaPanel(PacienteController pacienteController, CitaController citaController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
@@ -133,5 +149,4 @@ public class EliminarCitaPanel extends JPanel {
         idTextField.setText("");
         infoTextArea.setText("");
     }
-
 }

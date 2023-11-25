@@ -8,12 +8,28 @@ import dev.davidsalomon.vetpet.view.panels.MostrarPacientesPanel;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Window for managing patients in VetPet Clinic.
+ *
+ * <p>
+ * This window provides tabs for adding, displaying, editing, and removing
+ * patients.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class PacienteWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private final JTabbedPane tabbedPane;
     private final PacienteController pacienteController;
 
+    /**
+     * Constructor for the patient management window.
+     *
+     * @param pacienteController The patient controller to manage
+     * patient-related actions.
+     */
     public PacienteWindow(PacienteController pacienteController) {
         this.pacienteController = pacienteController;
         tabbedPane = new JTabbedPane();
@@ -22,25 +38,22 @@ public class PacienteWindow extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crear los paneles para los diferentes menús
+        // Create panels for different menus
         JPanel agregarPanel = createAgregarPanel();
         JPanel mostrarPanel = createMostrarPanel();
         JPanel editarPanel = createEditarPanel();
         JPanel borrarPanel = createBorrarPanel();
 
-        // Agregar los paneles al JTabbedPane con nombres descriptivos
+        // Add panels to the JTabbedPane with descriptive names
         tabbedPane.addTab("Agregar Pacientes", agregarPanel);
         tabbedPane.addTab("Mostrar Pacientes", mostrarPanel);
         tabbedPane.addTab("Editar Pacientes", editarPanel);
         tabbedPane.addTab("Dar de baja a Pacientes", borrarPanel);
 
-        // Agregar el JTabbedPane a la ventana
+        // Add the JTabbedPane to the window
         add(tabbedPane);
 
-        // Hacer visible la ventana
-        setVisible(true);
-
-        //JPanel panelPacientes = new JPanel(new BorderLayout());
+        // Make the window visible
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -49,23 +62,23 @@ public class PacienteWindow extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setSize(800, 600);
 
-        // Crear instancia de AgregarPacientePanel
+        // Create an instance of AgregarPacientePanel
         AgregarPacientePanel agregarPacientePanel = new AgregarPacientePanel(pacienteController);
 
-        // Agregar AgregarPacientePanel al panel principal
+        // Add AgregarPacientePanel to the main panel
         panel.add(agregarPacientePanel, BorderLayout.CENTER);
 
         return panel;
     }
 
     private JPanel createMostrarPanel() {
-        // Crear un nuevo MostrarPacientesPanel pasándole el controlador
+        // Create a new MostrarPacientesPanel passing the controller
         MostrarPacientesPanel mostrarPacientesPanel = new MostrarPacientesPanel(pacienteController);
 
-        // Crear un panel contenedor
+        // Create a container panel
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Agregar el MostrarPacientesPanel al panel contenedor
+        // Add the MostrarPacientesPanel to the container panel
         panel.add(mostrarPacientesPanel, BorderLayout.CENTER);
 
         return panel;
@@ -75,10 +88,10 @@ public class PacienteWindow extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setSize(800, 600);
 
-        // Crear instancia de AgregarPacientePanel
+        // Create an instance of EditarPacientePanel
         EditarPacientePanel editarPacientePanel = new EditarPacientePanel(pacienteController);
 
-        // Agregar AgregarPacientePanel al panel principal
+        // Add EditarPacientePanel to the main panel
         panel.add(editarPacientePanel, BorderLayout.CENTER);
 
         return panel;
@@ -88,13 +101,12 @@ public class PacienteWindow extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setSize(800, 600);
 
-        // Crear instancia de AgregarPacientePanel
+        // Create an instance of EliminarPacientePanel
         EliminarPacientePanel eliminarPacientePanel = new EliminarPacientePanel(pacienteController);
 
-        // Agregar AgregarPacientePanel al panel principal
+        // Add EliminarPacientePanel to the main panel
         panel.add(eliminarPacientePanel, BorderLayout.CENTER);
 
         return panel;
     }
-
 }

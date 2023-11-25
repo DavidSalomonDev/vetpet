@@ -4,8 +4,16 @@ import dev.davidsalomon.vetpet.model.Paciente;
 import dev.davidsalomon.vetpet.utils.Data;
 import java.util.List;
 
+/**
+ *
+ * @author salo
+ */
 public class CrearPacientes {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         PacienteController pacienteController = new PacienteController();

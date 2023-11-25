@@ -8,6 +8,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Panel para agregar nuevos cobros en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario ingresar la información necesaria para realizar
+ * un nuevo cobro, como el ID del paciente, la fecha, el monto y la descripción
+ * del cobro.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class AgregarCobroPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -18,6 +29,12 @@ public class AgregarCobroPanel extends JPanel {
     private JTextField idPacienteTextField, fechaTextField, montoTextField, descripcionTextField;
     private final JTextArea infoTextArea;
 
+    /**
+     * Constructor del panel de agregar cobros.
+     *
+     * @param pacienteController Controlador de pacientes.
+     * @param cobroController Controlador de cobros.
+     */
     public AgregarCobroPanel(PacienteController pacienteController, CobroController cobroController) {
         this.pacienteController = pacienteController;
         this.cobroController = cobroController;
@@ -29,7 +46,7 @@ public class AgregarCobroPanel extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Campos de texto para ingresar los datos de la vacuna
+        // Campos de texto para ingresar los datos del cobro
         addLabelAndTextField("Id del Paciente:", gbc);
 
         // Área de texto para mostrar la información del paciente
@@ -67,7 +84,6 @@ public class AgregarCobroPanel extends JPanel {
         });
         add(aplicarVacunaButton, gbc);
         setVisible(true);
-
     }
 
     private void addLabelAndTextField(String labelText, GridBagConstraints gbc) {
@@ -94,7 +110,6 @@ public class AgregarCobroPanel extends JPanel {
                 descripcionTextField = textField;
             default -> {
             }
-
         }
         gbc.gridy++;
     }
@@ -106,25 +121,25 @@ public class AgregarCobroPanel extends JPanel {
             String fecha = fechaTextField.getText();
             String descripcion = descripcionTextField.getText();
 
-            // Validar el formato del día (yyyy-mm-dd)
+            // Validar el formato de la fecha (yyyy-mm-dd)
             if (!validarFormatoDia(fechaTextField.getText())) {
-                JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la condición no se cumple
+                JOptionPane.showMessageDialog(this, "Formato de fecha no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
             Cobro nuevoCobro = new Cobro(idPaciente, fecha, Double.parseDouble(monto), descripcion);
 
-            // Agregar el paciente al controlador
+            // Agregar el cobro al controlador
             cobroController.agregarCobro(nuevoCobro);
 
             // Mostrar mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Cobro aplicado exitósamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cobro aplicado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Limpiar los campos de texto después de agregar el paciente
+            // Limpiar los campos de texto después de agregar el cobro
             limpiarCampos();
         } catch (NumberFormatException e) {
             // En caso de error de formato, mostrar cuadro de diálogo
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos, y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos y asegúrese de usar el formato correcto.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -157,7 +172,6 @@ public class AgregarCobroPanel extends JPanel {
     }
 
     private void limpiarCampos() {
-
         idPacienteTextField.setText("");
         descripcionTextField.setText("");
         fechaTextField.setText("");
@@ -165,9 +179,9 @@ public class AgregarCobroPanel extends JPanel {
         infoTextArea.setText("");
     }
 
-    private boolean validarFormatoDia(String dia) {
+    private boolean validarFormatoDia(String fecha) {
         // Utiliza una expresión regular para validar el formato yyyy-mm-dd
         String formatoDiaRegex = "\\d{4}-\\d{2}-\\d{2}";
-        return dia.matches(formatoDiaRegex);
+        return fecha.matches(formatoDiaRegex);
     }
 }

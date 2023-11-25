@@ -4,8 +4,16 @@ import dev.davidsalomon.vetpet.model.Cita;
 import dev.davidsalomon.vetpet.utils.Data;
 import java.util.List;
 
+/**
+ *
+ * @author salo
+ */
 public class CrearCitas {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         CitaController citaController = new CitaController();

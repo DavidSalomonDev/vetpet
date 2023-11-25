@@ -9,6 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+/**
+ * Panel para editar información de pacientes en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario cargar un paciente existente por su ID, ver los
+ * detalles del paciente, y editar la información del paciente, como nombre,
+ * dueño, edad, categoría, raza, sexo, altura, peso y pelaje.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class EditarPacientePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -18,6 +29,11 @@ public class EditarPacientePanel extends JPanel {
     private JTextField idTextField, nombreTextField, duenoTextField, edadTextField, categoriaTextField,
             razaTextField, sexoTextField, alturaTextField, pesoTextField, pelajeTextField;
 
+    /**
+     * Constructor del panel de edición de pacientes.
+     *
+     * @param pacienteController Controlador de pacientes.
+     */
     public EditarPacientePanel(PacienteController pacienteController) {
         this.pacienteController = pacienteController;
 
@@ -201,6 +217,5 @@ public class EditarPacientePanel extends JPanel {
         pesoTextField.setText("");
         alturaTextField.setText("");
         pelajeTextField.setText("");
-
     }
 }

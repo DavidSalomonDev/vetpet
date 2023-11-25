@@ -7,34 +7,49 @@ import dev.davidsalomon.vetpet.view.panels.MostrarCobrosPanel;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
+/**
+ * Window for managing payments (Cobros) in VetPetClinic.
+ *
+ * <p>
+ * This window includes tabs for adding and displaying payments.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class CobroWindow extends JFrame {
 
     private final PacienteController pacienteController;
     private final CobroController cobroController;
     private final JTabbedPane tabbedPane;
 
+    /**
+     * Constructor for the payment management window.
+     *
+     * @param pacienteController Patient controller.
+     * @param cobroController Payment controller.
+     */
     public CobroWindow(PacienteController pacienteController, CobroController cobroController) {
         this.pacienteController = pacienteController;
         this.cobroController = cobroController;
 
         tabbedPane = new JTabbedPane();
 
-        // Configuración básica del JFrame
+        // Basic JFrame configuration
         setTitle("Gestión de Cobros - VetPetClinic");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crear los paneles para los diferentes menús
+        // Create panels for different menus
         JPanel agregarPanel = createAgregarPanel();
         JPanel mostrarPanel = createMostrarPanel();
 
         tabbedPane.addTab("Agregar cobro", agregarPanel);
         tabbedPane.addTab("Mostrar cobros", mostrarPanel);
 
-        // Agregar el JTabbedPane al JFrame
+        // Add JTabbedPane to the JFrame
         add(tabbedPane);
         setLocationRelativeTo(null);
-        // Hacer visible el JFrame
+        // Make the JFrame visible
         setVisible(true);
     }
 
@@ -42,23 +57,23 @@ public class CobroWindow extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setSize(800, 600);
 
-        // Crear instancia de AgregarPacientePanel
+        // Create an instance of AgregarCobroPanel
         AgregarCobroPanel agregarCobroPanel = new AgregarCobroPanel(pacienteController, cobroController);
 
-        // Agregar AgregarPacientePanel al panel principal
+        // Add AgregarCobroPanel to the main panel
         panel.add(agregarCobroPanel, BorderLayout.CENTER);
 
         return panel;
     }
 
     private JPanel createMostrarPanel() {
-        // Crear un nuevo MostrarCitasPanel pasándole el controlador
+        // Create a new MostrarCobrosPanel passing the controller
         MostrarCobrosPanel mostrarCobrosPanel = new MostrarCobrosPanel(pacienteController, cobroController);
 
-        // Crear un panel contenedor
+        // Create a container panel
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Agregar el MostrarPacientesPanel al panel contenedor
+        // Add MostrarCobrosPanel to the container panel
         panel.add(mostrarCobrosPanel, BorderLayout.CENTER);
 
         return panel;

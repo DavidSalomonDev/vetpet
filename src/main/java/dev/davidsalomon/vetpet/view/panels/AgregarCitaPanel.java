@@ -8,6 +8,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Panel para agregar nuevas citas en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario ingresar la información necesaria para agendar
+ * una nueva cita, como el ID del paciente, el día, la hora y el motivo de la
+ * cita.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class AgregarCitaPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +28,12 @@ public class AgregarCitaPanel extends JPanel {
     private JTextField idPacienteTextField, diaTextField, horaTextField, motivoTextField;
     private final JTextArea infoTextArea;
 
+    /**
+     * Constructor del panel de agregar citas.
+     *
+     * @param pacienteController Controlador de pacientes.
+     * @param citaController Controlador de citas.
+     */
     public AgregarCitaPanel(PacienteController pacienteController, CitaController citaController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
@@ -103,7 +120,6 @@ public class AgregarCitaPanel extends JPanel {
                 motivoTextField = textField;
             default -> {
             }
-
         }
         gbc.gridy++;
     }
@@ -118,34 +134,34 @@ public class AgregarCitaPanel extends JPanel {
             // Validar el formato del día (yyyy-mm-dd)
             if (!validarFormatoDia(dia)) {
                 JOptionPane.showMessageDialog(this, "Formato de día no válido. Use yyyy-mm-dd.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la condición no se cumple
+                return;
             }
 
             // Validar el formato de la hora (hh:mm AM/PM)
             if (!validarFormatoHora(hora)) {
                 JOptionPane.showMessageDialog(this, "Formato de hora no válido. Use hh:mm AM/PM.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la condición no se cumple
+                return;
             }
 
             // Verificar si ya hay dos citas en el mismo día
             if (citaController.existeDosCitasEnMismoDia(idPaciente, dia)) {
                 JOptionPane.showMessageDialog(this, "No se puede agregar una tercera cita en el mismo día.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la condición no se cumple
+                return;
             }
 
             Cita nuevaCita = new Cita(idPaciente, dia, hora, motivo);
 
-            // Agregar el paciente al controlador
+            // Agregar la cita al controlador
             citaController.agregarCita(nuevaCita);
 
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Cita agregada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Limpiar los campos de texto después de agregar el paciente
+            // Limpiar los campos de texto después de agregar la cita
             limpiarCampos();
         } catch (NumberFormatException e) {
             // En caso de error de formato, mostrar cuadro de diálogo
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos, y asegúrese de usar el formato correcto (día = yyyy-mm-dd y hora = hh:mm AM/PM). ", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos y asegúrese de usar el formato correcto (día = yyyy-mm-dd y hora = hh:mm AM/PM).", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -183,13 +199,11 @@ public class AgregarCitaPanel extends JPanel {
     }
 
     private void limpiarCampos() {
-
         idPacienteTextField.setText("");
         diaTextField.setText("");
         horaTextField.setText("");
         motivoTextField.setText("");
         infoTextArea.setText("");
-
     }
 
     private boolean validarFormatoDia(String dia) {
@@ -203,5 +217,4 @@ public class AgregarCitaPanel extends JPanel {
         String formatoHoraRegex = "(1?[0-9]):[0-5][0-9]\\s?(AM|PM|am|pm)";
         return hora.matches(formatoHoraRegex);
     }
-
 }

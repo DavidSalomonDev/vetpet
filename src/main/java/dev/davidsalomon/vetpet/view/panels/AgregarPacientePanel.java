@@ -6,6 +6,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+/**
+ * Panel para agregar nuevos pacientes en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario ingresar la información necesaria para agregar
+ * un nuevo paciente, como el nombre, dueño, edad, categoría, raza, sexo,
+ * altura, peso, pelaje y fecha de nacimiento del paciente.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class AgregarPacientePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -13,6 +24,11 @@ public class AgregarPacientePanel extends JPanel {
     private JTextField nombreTextField, duenoTextField, edadTextField, categoriaTextField,
             razaTextField, sexoTextField, alturaTextField, pesoTextField, pelajeTextField, fechaNacimientoTextField;
 
+    /**
+     * Constructor del panel de agregar pacientes.
+     *
+     * @param pacienteController Controlador de pacientes.
+     */
     public AgregarPacientePanel(PacienteController pacienteController) {
         this.pacienteController = pacienteController;
 
@@ -107,8 +123,6 @@ public class AgregarPacientePanel extends JPanel {
             // Agregar el paciente al controlador
             pacienteController.agregarPaciente(nuevoPaciente);
 
-            pacienteController.getPacientes();
-
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(this, "Paciente agregado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
@@ -131,6 +145,5 @@ public class AgregarPacientePanel extends JPanel {
         alturaTextField.setText("");
         pelajeTextField.setText("");
         fechaNacimientoTextField.setText("");
-
     }
 }

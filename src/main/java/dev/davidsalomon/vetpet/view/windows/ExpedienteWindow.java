@@ -14,6 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
+/**
+ * Window for viewing patient records in VetPetClinic.
+ *
+ * <p>
+ * This window allows users to enter a patient's ID and view their information,
+ * including appointments, vaccinations, and payments.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class ExpedienteWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -27,13 +37,21 @@ public class ExpedienteWindow extends JFrame {
     private final JEditorPane infoEditorPane;
     private final JScrollPane infoScrollPane;
 
+    /**
+     * Constructor for the patient record window.
+     *
+     * @param pacienteController Patient controller.
+     * @param citaController Appointment controller.
+     * @param vacunaController Vaccination controller.
+     * @param cobroController Payment controller.
+     */
     public ExpedienteWindow(PacienteController pacienteController, CitaController citaController, VacunaController vacunaController, CobroController cobroController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
         this.vacunaController = vacunaController;
         this.cobroController = cobroController;
 
-        // Configuración básica del JFrame
+        // Basic JFrame configuration
         setTitle("Expediente de pacientes - VetPetClinic");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,10 +63,10 @@ public class ExpedienteWindow extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Campo de texto para ingresar el ID del paciente
+        // Text field for entering the patient's ID
         addLabelAndTextField("ID del Paciente:", gbc);
 
-        // Área de texto para mostrar la información del paciente
+        // Text area for displaying patient information
         infoEditorPane = new JEditorPane();
         infoScrollPane = new JScrollPane(infoEditorPane);
         infoScrollPane.setPreferredSize(new Dimension(350, 450));
@@ -64,7 +82,7 @@ public class ExpedienteWindow extends JFrame {
         gbc.weighty = 1.0;
         add(infoScrollPane, gbc);
 
-        // Botón para cargar la información del paciente
+        // Button to load patient information
         JButton cargarInfoButton = new JButton("Cargar Información del Paciente");
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -104,7 +122,7 @@ public class ExpedienteWindow extends JFrame {
         List<Cobro> cobros = obtenerCobrosPorIdPaciente(id);
 
         if (paciente != null) {
-            // Mostrar información del paciente
+            // Display patient information
             String info = "<html><body style='font-family: Arial, sans-serif; font-size: 14px;'>"
                     + "<div>"
                     + "<h1><strong>Información del paciente</strong></h1><hr>"
@@ -126,7 +144,7 @@ public class ExpedienteWindow extends JFrame {
             infoEditorPane.setText(info);
 
         } else {
-            // Limpiar el área de texto si no se encuentra el paciente
+            // Clear the text area if the patient is not found
             infoEditorPane.setText("");
             JOptionPane.showMessageDialog(this, "Paciente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -141,11 +159,16 @@ public class ExpedienteWindow extends JFrame {
         return null;
     }
 
+    /**
+     *
+     * @param idPaciente
+     * @return
+     */
     public List<Cita> obtenerCitasPorIdPaciente(String idPaciente) {
-        // Obtener y mostrar información de pacientes
+        // Get and display patient information
         List<Cita> citas = citaController.getCitas();
 
-        // Filtrar las citas por el ID del paciente
+        // Filter appointments by patient ID
         List<Cita> citasDelPaciente = new ArrayList<>();
         for (Cita cita : citas) {
             if (cita.getIdPaciente().equals(idPaciente)) {
@@ -156,6 +179,11 @@ public class ExpedienteWindow extends JFrame {
         return citasDelPaciente;
     }
 
+    /**
+     *
+     * @param citas
+     * @return
+     */
     public String generarHTMLCitas(List<Cita> citas) {
         StringBuilder htmlCitas = new StringBuilder();
 
@@ -173,10 +201,15 @@ public class ExpedienteWindow extends JFrame {
         return htmlCitas.toString();
     }
 
+    /**
+     *
+     * @param idPaciente
+     * @return
+     */
     public List<Vacuna> obtenerVacunasPorIdPaciente(String idPaciente) {
         List<Vacuna> vacunas = vacunaController.getVacunas();
 
-        // Filtrar las vacunas por el ID del paciente
+        // Filter vaccinations by patient ID
         List<Vacuna> vacunasDelPaciente = new ArrayList<>();
         for (Vacuna vacuna : vacunas) {
             if (vacuna.getIdPaciente().equals(idPaciente)) {
@@ -187,6 +220,11 @@ public class ExpedienteWindow extends JFrame {
         return vacunasDelPaciente;
     }
 
+    /**
+     *
+     * @param vacunas
+     * @return
+     */
     public String generarHTMLVacunas(List<Vacuna> vacunas) {
         StringBuilder htmlVacunas = new StringBuilder();
 
@@ -208,10 +246,15 @@ public class ExpedienteWindow extends JFrame {
         return htmlVacunas.toString();
     }
 
+    /**
+     *
+     * @param idPaciente
+     * @return
+     */
     public List<Cobro> obtenerCobrosPorIdPaciente(String idPaciente) {
         List<Cobro> cobros = cobroController.getCobros();
 
-        // Filtrar las vacunas por el ID del paciente
+        // Filter payments by patient ID
         List<Cobro> cobrosDelPaciente = new ArrayList<>();
         for (Cobro cobro : cobros) {
             if (cobro.getIdPaciente().equals(idPaciente)) {
@@ -222,6 +265,11 @@ public class ExpedienteWindow extends JFrame {
         return cobrosDelPaciente;
     }
 
+    /**
+     *
+     * @param cobros
+     * @return
+     */
     public String generarHTMLCobros(List<Cobro> cobros) {
         StringBuilder htmlCobros = new StringBuilder();
 
@@ -229,16 +277,15 @@ public class ExpedienteWindow extends JFrame {
                 .append("<h1><strong>Cobros</strong></h1><hr>");
 
         for (Cobro cobro : cobros) {
-            String infoVacuna = "Fecha:  <span style='color: #1E90FF;'>" + cobro.getFechaCobro() + "</span><br>"
+            String infoCobro = "Fecha:  <span style='color: #1E90FF;'>" + cobro.getFechaCobro() + "</span><br>"
                     + "Monto:  <span style='color: #1E90FF;'>" + cobro.getMonto() + "</span><br>"
                     + "Descripción:  <span style='color: #1E90FF;'>" + cobro.getDescripcion() + "</span><br>";
 
-            htmlCobros.append(infoVacuna);
+            htmlCobros.append(infoCobro);
         }
 
         htmlCobros.append("</div>");
 
         return htmlCobros.toString();
     }
-
 }

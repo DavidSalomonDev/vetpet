@@ -10,6 +10,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+/**
+ * Panel para editar información de citas en el sistema.
+ *
+ * <p>
+ * Este panel permite al usuario cargar una cita existente por su ID, ver los
+ * detalles de la cita, y editar la información de la cita, como el día, hora y
+ * motivo.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class EditarCitaPanel extends JPanel {
 
     private CitaController citaController;
@@ -17,6 +28,12 @@ public class EditarCitaPanel extends JPanel {
     private JTextArea nombrePacienteTextArea, duenoTextArea;
     private JTextField idTextField, diaTextField, horaTextField, motivoTextField;
 
+    /**
+     * Constructor del panel de edición de citas.
+     *
+     * @param pacienteController Controlador de pacientes.
+     * @param citaController Controlador de citas.
+     */
     public EditarCitaPanel(PacienteController pacienteController, CitaController citaController) {
         this.pacienteController = pacienteController;
         this.citaController = citaController;
@@ -72,7 +89,6 @@ public class EditarCitaPanel extends JPanel {
         add(editarCitaButton, gbc);
 
         setVisible(true);
-
     }
 
     private void addLabelAndTextField(String labelText, GridBagConstraints gbc) {
@@ -80,15 +96,15 @@ public class EditarCitaPanel extends JPanel {
         gbc.gridx = 0;
         add(label, gbc);
 
-        JTextField textField = new JTextField();
+        JTextField textField;
         JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
         if (labelText.equals("Nombre del paciente:") || labelText.equals("Nombre del dueño:")) {
-            textArea.setEditable(false); // Hacer el JTextArea no editable
             add(textArea, gbc);
 
             switch (labelText) {
@@ -98,7 +114,7 @@ public class EditarCitaPanel extends JPanel {
                     duenoTextArea = textArea;
             }
         } else {
-            textField.setEditable(true); // Hacer el JTextField editable
+            textField = new JTextField();
             add(textField, gbc);
 
             switch (labelText) {
@@ -125,17 +141,17 @@ public class EditarCitaPanel extends JPanel {
             return;
         }
 
-        // Buscar el paciente con el ID proporcionado
+        // Buscar la cita con el ID proporcionado
         Cita citaExistente = buscarCitaPorID(idCita);
 
         if (citaExistente == null) {
-            JOptionPane.showMessageDialog(this, "No se encontró un paciente con el ID proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se encontró una cita con el ID proporcionado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Mostrar los datos del paciente en los campos de texto
+            // Mostrar los datos de la cita en los campos de texto
             nombrePacienteTextArea.setText(citaExistente.getPaciente(pacienteController).getNombre());
             duenoTextArea.setText(citaExistente.getPaciente(pacienteController).getDueno());
             diaTextField.setText(citaExistente.getDia());
-            horaTextField.setText(String.valueOf(citaExistente.getHora()));
+            horaTextField.setText(citaExistente.getHora());
             motivoTextField.setText(citaExistente.getMotivo());
         }
     }
@@ -216,7 +232,7 @@ public class EditarCitaPanel extends JPanel {
 
     private boolean validarFormatoHora(String hora) {
         // Utiliza una expresión regular para validar el formato hh:mm AM/PM
-        String formatoHoraRegex = "(1?[0-9]):[0-5][0-9]\\s?(AM|PM|am|pm)";
+        String formatoHoraRegex = "(1?[0-9]|2[0-3]):[0-5][0-9]\\s?(AM|PM|am|pm)";
         return hora.matches(formatoHoraRegex);
     }
 }

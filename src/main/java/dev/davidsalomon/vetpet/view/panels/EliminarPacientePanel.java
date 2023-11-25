@@ -7,6 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * Panel for deleting patients from the system.
+ *
+ * <p>
+ * This panel allows the user to enter the ID of a patient, load its
+ * information, and, if necessary, mark the patient as inactive.</p>
+ *
+ * @author davidsalomon
+ * @version 1.0
+ */
 public class EliminarPacientePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -14,6 +24,11 @@ public class EliminarPacientePanel extends JPanel {
     private JTextField idTextField;
     private final JTextArea infoTextArea;
 
+    /**
+     * Constructor for the patient deletion panel.
+     *
+     * @param pacienteController Patient controller.
+     */
     public EliminarPacientePanel(PacienteController pacienteController) {
         this.pacienteController = pacienteController;
 
@@ -24,10 +39,10 @@ public class EliminarPacientePanel extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Campo de texto para ingresar el ID del paciente
+        // Text field to enter the patient's ID
         addLabelAndTextField("ID del Paciente:", gbc);
 
-        // Área de texto para mostrar la información del paciente
+        // Text area to display patient information
         infoTextArea = new JTextArea();
         infoTextArea.setEditable(false);
         gbc.gridx = 0;
@@ -36,7 +51,7 @@ public class EliminarPacientePanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(infoTextArea, gbc);
 
-        // Botón para cargar la información del paciente
+        // Button to load patient information
         JButton cargarInfoButton = new JButton("Cargar Información del Paciente");
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -46,7 +61,7 @@ public class EliminarPacientePanel extends JPanel {
         });
         add(cargarInfoButton, gbc);
 
-        // Botón para dar de baja al paciente
+        // Button to mark the patient as inactive
         JButton darDeBajaButton = new JButton("Dar de Baja");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -85,7 +100,7 @@ public class EliminarPacientePanel extends JPanel {
         Paciente paciente = buscarPaciente(id);
 
         if (paciente != null) {
-            // Mostrar información del paciente
+            // Display patient information
             String info = "Nombre: " + paciente.getNombre() + "\n"
                     + "Dueño: " + paciente.getDueno() + "\n"
                     + "Edad: " + paciente.getEdad() + "\n"
@@ -98,7 +113,7 @@ public class EliminarPacientePanel extends JPanel {
                     + "Fecha de Nacimiento: " + paciente.getFechaNacimiento() + "\n";
             infoTextArea.setText(info);
         } else {
-            // Limpiar el área de texto si no se encuentra el paciente
+            // Clear the text area if the patient is not found
             infoTextArea.setText("");
             JOptionPane.showMessageDialog(this, "Paciente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
